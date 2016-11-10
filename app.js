@@ -118,7 +118,7 @@ global.log = function(item, text) {
 global.Db = require("origindb")("config/database-" + Config.info.serverid);
 
 
-//check for bot auth;
+// check for bot auth;
 if (!Object.keys(Db("ranks").object()).length) {
     if (process.argv[2]) {
         Db("ranks").set(toId(process.argv.slice(2).join("")), "~");
@@ -130,8 +130,9 @@ if (!Object.keys(Db("ranks").object()).length) {
     }
 }
 
-//globals
+// globals
 
+global.Events = require("./event-listeners.js");
 global.Parse = require("./parser.js").parse;
 global.Tools = require("./tools.js").Tools;
 global.Plugins = require("./plugins-parser").Plugins;

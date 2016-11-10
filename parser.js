@@ -4,6 +4,8 @@ let https = require("https");
 let http = require("http");
 let url = require("url");
 
+Events.on("init", {room: "lobby"}, () => send("|/leave"));
+
 exports.parse = {
     connectionDetails:{
         firstConnect: true,
@@ -40,6 +42,7 @@ exports.parse = {
         room = Rooms.get(room);
         let parts = entry.split("|");
         let user, message;
+        Events.onEvent(room, parts[1], parts.slice(2).join("|"));
         switch (parts[1]) {
             case "challstr":
                 this.challstr = parts.slice(2);
@@ -105,7 +108,7 @@ exports.parse = {
                 break;
             case "noinit":
             case "deinit":
-                if(room.name === "global") {
+                if (room.name === "global") {
                     log("monitor", "Banned from server (left room global).")
                     this.connectionDetails.globallyBanned = true;
                 }
