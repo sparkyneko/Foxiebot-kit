@@ -125,17 +125,20 @@ let getUser = Users.get = function(username) {
 }
 
 let renameUser = Users.rename = function(oldId, newName) {
-    if (!Users.users.has(oldId)) return false; // already renamed
-    users.set(toId(newName), Users.get(oldId));
-    Monitor.transferRecords(oldId, toId(newName));
-    users.delete(oldId);
+    if (!Users.users.has(oldId)) return false; //already renamed
+    if (toId(oldId) !== toId(newName)) {
+        users.set(toId(newName), getUser(oldId));
+        Monitor.transferRecords(oldId, toId(newName));
+        users.delete(oldId);
+    }
     let tarUser = getUser(newName);
-    // change attributes of the new user
+    //change attributes of the new user
     tarUser.name = newName.slice(1);
     tarUser.userid = toId(newName);
     tarUser.botRank = Db("ranks").get(tarUser.userid, " ");
     tarUser.globalRank = " ";
     tarUser.isStaff = Config.ranks[tarUser.botRank] >= 2;
 }
+
 
 module.exports = Users;

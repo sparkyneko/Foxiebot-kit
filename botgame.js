@@ -15,9 +15,11 @@ class botGame {
     onRename (oldId, newName) {
         if(!this.userList.includes(oldId)) return false;
         let newId = toId(newName);
-        this.users[newId] = this.users[oldId];
-        delete this.users[oldId];
-        this.userList.splice(this.userList.indexOf(oldId), 1, newId);
+        if (newId !== oldId) {
+            this.users[newId] = this.users[oldId];
+            delete this.users[oldId];
+            this.userList.splice(this.userList.indexOf(oldId), 1, newId);
+        }
         this.users[newId].rename(newName);
         if(this.currentPlayer && this.currentPlayer === oldId) this.currentPlayer = newId;
     }

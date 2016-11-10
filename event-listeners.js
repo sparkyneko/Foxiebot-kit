@@ -46,7 +46,6 @@ class EventListener {
         return this.addListener(options);
     }
     
-    
     addListener(options) {
         this.count++;
         let id = "listener-" + this.count;
