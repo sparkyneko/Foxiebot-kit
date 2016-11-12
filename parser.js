@@ -4,8 +4,6 @@ let https = require("https");
 let http = require("http");
 let url = require("url");
 
-Events.on("init", {room: "lobby"}, () => send("|/leave"));
-
 exports.parse = {
     connectionDetails:{
         firstConnect: true,
