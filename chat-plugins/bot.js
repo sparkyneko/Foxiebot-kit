@@ -48,18 +48,18 @@ exports.commands = {
         this.send("Attempting to rename to " + nick);
     },
     memusage: 'memoryusage',
-	memoryusage: function (target) {
-		if (!user.isDev()) return false;
-        this.can("say");
-		let memUsage = process.memoryUsage();
-		let results = [memUsage.rss, memUsage.heapUsed, memUsage.heapTotal];
-		let units = ["B", "KiB", "MiB", "GiB", "TiB"];
-		for (let i = 0; i < results.length; i++) {
-			let unitIndex = Math.floor(Math.log2(results[i]) / 10); // 2^10 base log
-			results[i] = "" + (results[i] / Math.pow(2, 10 * unitIndex)).toFixed(2) + " " + units[unitIndex];
-		}
-		this.send("||[Main process] RSS: " + results[0] + ", Heap: " + results[1] + " / " + results[2]);
-	},
+    memoryusage: function (target, room, user) {
+	if (!user.isDev()) return false;
+	this.can("say");
+	let memUsage = process.memoryUsage();
+	let results = [memUsage.rss, memUsage.heapUsed, memUsage.heapTotal];
+	let units = ["B", "KiB", "MiB", "GiB", "TiB"];
+	for (let i = 0; i < results.length; i++) {
+		let unitIndex = Math.floor(Math.log2(results[i]) / 10); // 2^10 base log
+		results[i] = "" + (results[i] / Math.pow(2, 10 * unitIndex)).toFixed(2) + " " + units[unitIndex];
+	}
+	this.send("[Main process] RSS: " + results[0] + ", Heap: " + results[1] + " / " + results[2]);
+    },
 
     
     auth: "promote",
