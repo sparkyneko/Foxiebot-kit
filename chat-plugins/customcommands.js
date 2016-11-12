@@ -51,12 +51,11 @@ exports.commands = {
         }
         if (!Db("customcommands").get(targetRoom, null)) return this.send("No custom commands have been set yet.");
         let CC = Db("customcommands").get(targetRoom, {});
-        let hastebin = "Custom Commmands for room: " + targetRoom + "\n\n" + Object.keys(CC).sort().map(function(c) {
-            return (room ? room.commandCharacter[0] : Config.defaultCharacter[0]) + c + "\nRank: " + CC[c].rank + "\nOutput: " + CC[c].text.join("\n");
-        }.bind(this)).join("\n\n");
-        Tools.uploadToHastebin(hastebin, function(link) {
+        let hastebin = "Custom Commmands for room: " + targetRoom + "\n\n" +
+            Object.keys(CC).sort().map(c => (room ? room.commandCharacter[0] : Config.defaultCharacter[0]) + c + "\nRank: " + CC[c].rank + "\nOutput: " + CC[c].text.join("\n")).join("\n\n");
+        Tools.uploadToHastebin(hastebin, link => {
             this.send("Custom commands for room " + targetRoom + ": " + link);
-        }.bind(this));
+        });
     },
     alias: function (target, room, user) {
         if (!target || target.indexOf(",") === -1) return false;

@@ -1,11 +1,9 @@
 "use strict";
 const path = require("path");
-const sys = require("sys");
+const util = require("util");
 
 Array.prototype.sum = function() {
-    return this.reduce(function(pv, cv) {
-        return pv + cv;
-    }, 0);
+    return this.reduce((pv, cv) => pv + cv, 0);
 }
 Array.prototype.includes = function(item) {
     return this.indexOf(item) > -1;
@@ -14,20 +12,22 @@ Array.prototype.includes = function(item) {
 function runNpm(command) {
     console.log("Running `npm " + command + "`...");
 
-    var child_process = require("child_process");
-    var npm = child_process.spawn("npm", [command]);
+    let child_process = require("child_process");
+    // Windows will actually error with "npm," so check the platform before continuing
+    let baseCommand = (process.platform === "win32" ? "npm.cmd" : "npm");
+    let npm = child_process.spawn(baseCommand, [command]);
 
-    npm.stdout.on("data", function(data) {
+    npm.stdout.on("data", data => {
         process.stdout.write(data);
     });
 
-    npm.stderr.on("data", function(data) {
+    npm.stderr.on("data", data => {
         process.stderr.write(data);
     });
 
-    npm.on("close", function(code) {
+    npm.on("close", code => {
         if (!code) {
-            child_process.fork("main.js").disconnect();
+            child_process.fork("app.js").disconnect();
         }
     });
 }
@@ -60,10 +60,10 @@ global.removeCommand = function(text) {
 
 global.getEST = function(date) {
     function isDst(tarDate) {
-        var deezNuts = new Date(tarDate);
-        var deezMonth = deezNuts.getMonth() + 1;
-        var deezDay = deezNuts.getDate() + 1;
-        var deezDayofWeek = deezNuts.getDay();
+        let deezNuts = new Date(tarDate);
+        let deezMonth = deezNuts.getMonth() + 1;
+        let deezDay = deezNuts.getDate() + 1;
+        let deezDayofWeek = deezNuts.getDay();
         if (deezMonth > 11 || deezMonth < 3) {
             return false;
         }
@@ -145,9 +145,9 @@ global.Rooms = require("./rooms.js");
 function loadChatPlugins() {
     let loaded = [];
     let failed = [];
-    fs.readdirSync("./chat-plugins/").forEach(function(f) {
+    fs.readdirSync("./chat-plugins/").forEach(f => {
         try {
-            Object.merge(Commands, require("./chat-plugins/" + f).commands);
+            Object.assign(Commands, require("./chat-plugins/" + f).commands);
             loaded.push(f);
         }
         catch (e) {
@@ -167,7 +167,7 @@ loadChatPlugins();
 //globals
 
 if (Config.watchConfig) {
-    fs.watchFile(path.resolve(__dirname, "config/config.js"), function(curr, prev) {
+    fs.watchFile(path.resolve(__dirname, "config/config.js"), (curr, prev) => {
         if (curr.mtime <= prev.mtime) return;
         try {
             delete require.cache[require.resolve("./config/config.js")];
@@ -252,37 +252,37 @@ let connect = function(retry) {
 
     let ws = new WebSocketClient();
 
-    ws.on("connectFailed", function(err) {
-        log("error", "Could not connect to server " + Config.info.server + ": " + sys.inspect(err));
+    ws.on("connectFailed", err => {
+        log("error", "Could not connect to server " + Config.info.server + ": " + util.inspect(err));
         log("info", "retrying in 15 seconds");
 
-        setTimeout(function() {
-            connect(true);
+        setTimeout(() => {
+	    connect(true);
         }, 15000);
     });
 
-    ws.on("connect", function(con) {
+    ws.on("connect", con => {
         connection = con;
         log("ok", "connected to server " + Config.info.server);
         Parse.connectionDetails = {
             firstConnect: true,
             globallyBanned: false,
         };
-        Rooms.rooms.forEach(function(value, key) {
+        Rooms.rooms.forEach((value, key) => {
             log("info", "Deleting Room object for " + key);
             Rooms.delete(key, true);
         })
 
-        con.on("error", function(err) {
-            log("error", "connection error: " + sys.inspect(err));
+        con.on("error", err => {
+            log("error", "connection error: " + util.inspect(err));
         });
 
-        con.on("close", function() {
+        con.on("close", () => {
             // Is this always error or can this be intended...?
-            log("error", "connection closed: " + sys.inspect(arguments));
+            log("error", "connection closed: " + util.inspect(arguments));
             log("info", "retrying in one 15 seconds");
 
-            setTimeout(function() {
+            setTimeout(() => {
                 connect(true);
             }, 15000);
         });
@@ -303,7 +303,7 @@ let connect = function(retry) {
     }
 
     let conStr = "ws://" + Config.info.server + ":" + Config.info.port + "/showdown/" + id + "/" + str + "/websocket";
-    log("info", "connecting to " + conStr + " - secondary protocols: " + sys.inspect(Config.secprotocols));
+    log("info", "connecting to " + conStr + " - secondary protocols: " + util.inspect(Config.secprotocols));
     ws.connect(conStr, Config.secprotocols);
 };
 connect();

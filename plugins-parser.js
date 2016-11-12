@@ -17,7 +17,7 @@ exports.Plugins = {
             let newCommand = broadcastText[0].slice(7).trim();
             return commandParser(newCommand.replace(/^\//i, (!pm ? room.commandCharacter[0] : Config.defaultCharacter[0])), user, room, !Config.monitorDefault, levelsDeep + 1);
         }
-        broadcastText.forEach(function(returnText, postIndex) {
+        broadcastText.forEach((returnText, postIndex) => {
             // old custom command code from sparkyboTTT
             returnText = returnText.replace(/{arg}/g, '{arg[0]}').split('{');
             for (let i = 0; i < returnText.length; i++) {

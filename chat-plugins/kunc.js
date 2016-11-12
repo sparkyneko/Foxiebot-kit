@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 class kuncGame extends Rooms.botGame {
     constructor (room, scorecap) {
@@ -117,9 +117,8 @@ class kuncGame extends Rooms.botGame {
     }
     
     getScoreBoard () {
-        let self = this;
         return "Points: " + Object.keys(this.users).sort().map((u) => {
-            return self.users[u].name + " (" + self.users[u].points + ")";
+            return this.users[u].name + " (" + this.users[u].points + ")";
         }).join(", ");
     }
 }

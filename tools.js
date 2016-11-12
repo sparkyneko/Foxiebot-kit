@@ -34,10 +34,9 @@ exports.Tools = {
             let newuncache = [];
             for (let i = 0; i < uncache.length; ++i) {
                 if (require.cache[uncache[i]]) {
-                    newuncache.push.apply(newuncache,
-                        require.cache[uncache[i]].children.map(function(module) {
-                            return module.filename;
-                        })
+                    newuncache.push.apply(
+                        newuncache,
+                        require.cache[uncache[i]].children.map(module => module.filename)
                     );
                     delete require.cache[uncache[i]];
                 }
@@ -57,16 +56,16 @@ exports.Tools = {
         }
         let loaded = [];
         let failed = [];
-        fs.readdirSync('./chat-plugins/').forEach(function(f) {
+        fs.readdirSync('./chat-plugins/').forEach(f => {
             try {
                 this.uncacheTree("./chat-plugins/" + f);
-                Object.merge(Commands, require("./chat-plugins/" + f).commands);
+                Object.assign(Commands, require("./chat-plugins/" + f).commands);
                 loaded.push(f);
             }
             catch (e) {
                 failed.push(f)
             }
-        }.bind(this))
+        });
         if (loaded.length) {
             log("info", "Loaded command files: " + loaded.join(", "));
         }
@@ -129,9 +128,7 @@ exports.Tools = {
     },
     regexify: function(string) {
         if (!string) return "";
-        return string.split("").map(function(l) {
-            return /[a-zA-Z0-9\s]/i.test(l) ? l : "\\" + l;
-        }).join("");
+        return string.split("").map(l => (/[a-zA-Z0-9\s]/i.test(l) ? l : "\\" + l)).join("");
     },
     uploadToHastebin: function(toUpload, callback) {
         if (typeof callback !== 'function') return false;
@@ -141,8 +138,8 @@ exports.Tools = {
             path: '/documents'
         };
 
-        let req = require('http').request(reqOpts, function(res) {
-            res.on('data', function(chunk) {
+        let req = require('http').request(reqOpts, res => {
+            res.on('data', chunk => {
                 // CloudFlare can go to hell for sending the body in a header request like this
                 let filename;
                 try {
@@ -159,7 +156,7 @@ exports.Tools = {
                 callback('http://hastebin.com/raw/' + filename);
             });
         });
-        req.on('error', function(e) {
+        req.on('error', e => {
             callback('Error uploading to Hastebin: ' + e.message);
             //throw e;
         });

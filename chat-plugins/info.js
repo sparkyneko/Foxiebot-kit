@@ -1,13 +1,13 @@
-'use strict';
+﻿'use strict';
 const http = require("http");
 
-function getData(link, callback, https) {
-    http.get(link, function(res) {
-        var data = '';
-        res.on('data', function(part) {
+function getData(link, callback) {
+    http.get(link, res => {
+        let data = '';
+        res.on('data', part => {
             data += part;
         });
-        res.on('end', function(end) {
+        res.on('end', () => {
             callback(data);
         });
     });
@@ -33,24 +33,21 @@ exports.commands = {
         target = target.toLowerCase();
         this.can("say");
         if (!Tools.helpEntries[target]) return false;
-        Tools.helpEntries[target].forEach(function(e) {
+        Tools.helpEntries[target].forEach(e => {
             this.send(e.replace(/^\//i, room ? room.commandCharacter[0] : Config.defaultCharacter));
-        }.bind(this));
+        });
     },
     guide: function(target, room, user) {
         this.can("set");
         let useCommandCharacter = room ? room.commandCharacter[0] : Config.defaultCharacter[0];
-        let hastebin = Object.keys(Tools.helpEntries).sort().map(function(entry) {
-            return Tools.helpEntries[entry].join("\n").replace(/^\//i, useCommandCharacter).replace(/\n\//i, useCommandCharacter);
-        }.bind(this)).join("\n\n");
-        Tools.uploadToHastebin("Bot Commands: \n\n" + hastebin, function(link) {
+        let hastebin = Object.keys(Tools.helpEntries).sort().map(entry => Tools.helpEntries[entry].join("\n").replace(/^\//i, useCommandCharacter).replace(/\n\//i, useCommandCharacter)).join("\n\n");
+        Tools.uploadToHastebin("Bot Commands: \n\n" + hastebin, link => {
             this.send("Bot Guide: " + link);
-        }.bind(this));
-
+        });
     },
     git: function(target, room, user) {
         this.can("set");
-        this.send(Monitor.username + "'s github repository: " + "https://github.com/sparkychild/FoxieBot");
+        this.send(Monitor.username + "'s github repository: https://github.com/sparkychild/FoxieBot");
     },
     usage: function(target, room, user) {
         let baseLink = "http://www.smogon.com/stats/2016-01/";
@@ -66,9 +63,7 @@ exports.commands = {
         
         if (!mon || !tier) return this.parse("/help usage");
 
-        let self = this;
-
-        function parseUsageData(data) {
+        let parseUsageData = data => {
             let monData;
             let placement = {};
             for (let tMon in data) {
@@ -80,15 +75,15 @@ exports.commands = {
                 }
                 placement[toId(tMon)] = data[tMon].usage;
             }
-            if (!monData) return self.send("Invalid Pokémon.");
-            monData.placement = Object.keys(placement).sort(function(a, b) {
+            if (!monData) return this.send("Invalid Pokémon.");
+            monData.placement = Object.keys(placement).sort((a, b) => {
                 if (placement[a] > placement[b]) return -1;
                 return 1;
             }).indexOf(mon) + 1;
-            self.send(monData.name + " - #" + monData.placement + " in " + tier.toUpperCase() + " | Usage: " + monData.data.usage * 100 + "% | Raw Count: " + monData.data["Raw count"] + ".");
-        }
+            this.send(monData.name + " - #" + monData.placement + " in " + tier.toUpperCase() + " | Usage: " + monData.data.usage * 100 + "% | Raw Count: " + monData.data["Raw count"] + ".");
+        };
 
-        getData(baseLink + "chaos/" + tier + "-1500.json", function(data) {
+        getData(baseLink + "chaos/" + tier + "-1500.json", data => {
             try {
                 data = JSON.parse(data).data;
             }
@@ -96,6 +91,6 @@ exports.commands = {
                 return this.send("Unable to parse JSON data/Invalid tier.");
             }
             parseUsageData(data);
-        }.bind(this));
+        });
     },
 };

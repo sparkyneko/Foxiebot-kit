@@ -47,9 +47,9 @@ class ResourceMonitor {
         this.init();
     }
     init() {
-        setInterval(function() {
+        setInterval(() => {
             this.clean();
-        }.bind(this), 60000);
+        }, 60000);
     }
     clean() {
         this.users = {};
@@ -66,13 +66,13 @@ class ResourceMonitor {
             log("monitor", "[LOCKDOWN]")
             this.lockdown = true;
         }
-        setTimeout(function() {
+        setTimeout(() => {
             this.pattern.shift();
             if (this.pattern.length < 5) {
                 this.lockdown = false;
                 log("monitor", "[ENDLOCKDOWN]")
             }
-        }.bind(this), 1800000);
+        }, 1800000);
     }
     run(user, room, command, pm) {
         if (user.isDev()) return false;
@@ -98,9 +98,9 @@ class ResourceMonitor {
         if (this.rooms[room.id] > this.settings.room && !this.alertRooms[room.id]) {
             this.alertRooms[room.id] = 1;
             log("monitor", "[ROOM - " + room.id + "] high usage.");
-            setTimeout(function() {
+            setTimeout(() => {
                 delete this.alertRooms[room.id];
-            }.bind(this), 3600000);
+            }, 3600000);
         }
         //moderate spammy rooms harshly
         if (this.alertRooms[room.id] && Object.values(this.users[user.userid]).sum() > this.settings.alertRoom) {
@@ -108,7 +108,7 @@ class ResourceMonitor {
             this.warnings[user.userid]++;
             this.settings.moderate(user.userid, this.warnings[user.userid]);
             //search for patterns
-            for (var cmd in this.users[user.userid]) {
+            for (let cmd in this.users[user.userid]) {
                 if (this.users[user.userid][cmd] > 6) {
                     this.setPattern(cmd);
                 }
@@ -123,7 +123,7 @@ class ResourceMonitor {
         }
         //general users
         //moderating for patterns
-        for (var cmd in this.users[user.userid]) {
+        for (let cmd in this.users[user.userid]) {
             if (this.users[user.userid][cmd] >= this.settings.pattern && this.pattern.includes(cmd)) {
                 log("monitor", "[USER: " + user.userid + "] Abuse of " + cmd + " command.")
                 this.setPattern(cmd);
@@ -137,7 +137,7 @@ class ResourceMonitor {
             this.warnings[user.userid]++;
             this.settings.moderate(user.userid, this.warnings[user.userid]);
             //search for patterns
-            for (var cmd in this.users[user.userid]) {
+            for (let cmd in this.users[user.userid]) {
                 if (this.users[user.userid][cmd] > 6) {
                     this.setPattern(cmd);
                 }

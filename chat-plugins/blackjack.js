@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 const cardTypes = ["D", "C", "H", "S"];
 const symbols = {
@@ -44,7 +44,6 @@ class blackjackGame extends Rooms.botGame {
         
         this.shuffleDeck();
         let cardQueue = this.userList.concat(this.userList);
-        let self = this;
         
         // give dealer two cards
         this.giveCard("blackjackgamedealer");
@@ -52,7 +51,7 @@ class blackjackGame extends Rooms.botGame {
         
         // deal 2 cards for each player;
         cardQueue.forEach((u, index) => {
-            self.giveCard(toId(u), index < this.userList.length);
+            this.giveCard(toId(u), index < this.userList.length);
         });
         this.sendRoom("Dealer's top card: [" + symbols[this.dealer.hand[0].type] + this.dealer.hand[0].value + "].");
         this.setNextPlayer();
@@ -63,11 +62,10 @@ class blackjackGame extends Rooms.botGame {
         let player = this.users[this.currentPlayer];
         player.sendHand();
         this.sendRoom(player.name + "'s turn. (" + this.room.commandCharacter[0] + "hit or " + this.room.commandCharacter[0] + "stay.)");
-        let self = this;
         this.timer = setTimeout(() => {
             this.users[this.currentPlayer].completedTurn = true;
-            if (self.eliminate()) {
-                self.initTurn();
+            if (this.eliminate()) {
+                this.initTurn();
             }
         }, 90000);
     }
@@ -149,10 +147,7 @@ class blackjackGame extends Rooms.botGame {
     }
     
     buildPlayerList () {
-        let self = this;
-        let list = this.userList.map((f) => {
-            return self.users[f].name;
-        }).sort().join(", ");
+        let list = this.userList.map((f) => this.users[f].name).sort().join(", ");
         return "Players (" + this.userList.length + "): " + list;
     }
 }
@@ -175,9 +170,7 @@ class blackjackGamePlayer extends Rooms.botGamePlayer {
             // if values are the same, sort by suit
             if(cardTypes.indexOf(a.type) > cardTypes.indexOf(b.type)) return 1;
             return -1;
-        }).map((c) => {
-            return "[" + symbols[c.type] + c.value + "]";
-        }).join(", ");
+        }).map((c) => "[" + symbols[c.type] + c.value + "]").join(", ");
         this.user.sendTo("Your hand: " + hand + ". Total: " + this.total);
     }
     

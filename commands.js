@@ -187,9 +187,7 @@ exports.commands = {
                 "| BannedWords                      |\n" +
                 "+----------------------------------+\n";
             if (roomSettings.bannedWords && Object.keys(roomSettings.bannedWords).length) {
-                buffer += Object.keys(roomSettings.bannedWords).map(function(w) {
-                    return "| (" + roomSettings.bannedWords[w] + ") " + w + "                              ".slice(w.length + roomSettings.bannedWords[w].toString().length) + "|";
-                }).join("\n") + "\n";
+                buffer += Object.keys(roomSettings.bannedWords).map(w => "| (" + roomSettings.bannedWords[w] + ") " + w + "                              ".slice(w.length + roomSettings.bannedWords[w].toString().length) + "|").join("\n") + "\n";
             }
             else {
                 buffer += "| None!                            |\n";
@@ -203,9 +201,7 @@ exports.commands = {
                 "| Blacklisted Users    |\n" +
                 "+----------------------+\n";
             if (targetRoom.blacklist && Object.keys(targetRoom.blacklist).length) {
-                buffer += Object.keys(targetRoom.blacklist).sort().map(function(w) {
-                    return "| - " + w + "                   ".slice(w.length) + "|";
-                }).join("\n") + "\n";
+                buffer += Object.keys(targetRoom.blacklist).sort().map(w => "| - " + w + "                   ".slice(w.length) + "|").join("\n") + "\n";
             }
             else if (!targetRoom.blacklist || Object.keys(targetRoom.blacklist).length === 0) {
                 buffer += "| None!                |\n";
@@ -220,7 +216,7 @@ exports.commands = {
                 "| Moderation Aspect |     |\n" +
                 "+-------------------+-----+\n";
 
-            modBuffer += Object.keys(Config.modSettings).map(function(aspect) {
+            modBuffer += Object.keys(Config.modSettings).map(aspect => {
                 let tSetting = roomSettings.moderation && roomSettings.moderation[aspect] ? roomSettings.moderation[aspect].toUpperCase() : "+";
                 return "| " + aspect + "                  ".slice(aspect.length) + "| " + tSetting + "    ".slice(tSetting.length) + "|\n";
             }).join("+ - - - - - - - - - + - - +\n");
@@ -256,9 +252,9 @@ exports.commands = {
                 buildBlacklist() +
                 getCommandSettings();
         }
-        Tools.uploadToHastebin("Settings: \n=========\n\n" + settingsDisplay, function(link) {
+        Tools.uploadToHastebin("Settings: \n=========\n\n" + settingsDisplay, link => {
             user.sendTo("Settings for " + targetRoom.name + ": " + link);
-        }.bind(this))
+        });
     },
 
 };

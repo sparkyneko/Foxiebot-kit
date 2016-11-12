@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 let Rooms = {};
 let rooms = Rooms.rooms = new Map();
 
@@ -16,7 +16,7 @@ class Room {
     }
 
     init() {
-        this.timer = setInterval(function() {
+        this.timer = setInterval(() => {
             for (let name in this.userData) {
                 if (this.userData[name].demerits === 0) continue;
                 let points = this.userData[name].demerits - 1;
@@ -24,7 +24,7 @@ class Room {
                 points = points < 0 ? 0 : points;
                 this.userData[name].demerits = points;
             }
-        }.bind(this), 900000);
+        }, 900000);
     }
 
     end() {
@@ -61,10 +61,10 @@ class Room {
     buildUserList(list) {
         //|users|2,+sparkyboTTT,#sparkychild
         list = list.split(",").slice(1);
-        list.forEach(function(u) {
+        list.forEach(u => {
             this.users.set(toId(u), u.charAt(0));
             Users.get(u).update(this, u);
-        }.bind(this));
+        });
     }
 
     userJoin(username) {
@@ -151,7 +151,7 @@ class Room {
             reasons: []
         };
         let moderateAll = false;
-        Object.keys(Config.modSettings).forEach(function(aspect) {
+        Object.keys(Config.modSettings).forEach(aspect => {
             minModRank = Db("settings").get([this.id, "moderation", aspect], "+");
             if (shouldModerate(userRank, minModRank) || moderateAll) {
                 switch (aspect) {
@@ -229,10 +229,10 @@ class Room {
                         let bannedWords = Db("settings").get([this.id, "bannedWords"], {});
                         if (Object.keys(bannedWords).length) {
                             let tMsg = msg.toLowerCase();
-                            var maxPoints = 0;
-                            for (var tWord in bannedWords) {
+                            let maxPoints = 0;
+                            for (let tWord in bannedWords) {
                                 try {
-                                    var wordSearch = new RegExp(tWord, 'i');
+                                    let wordSearch = new RegExp(tWord, 'i');
                                 }
                                 catch (e) {
                                     continue;
@@ -250,7 +250,7 @@ class Room {
                         break;
                 }
             }
-        }.bind(this));
+        });
         if (applyModeration.points) {
             if (moderateAll && applyModeration.reasons.length >= 2) {
                 //deal with purposeful rulebreakers more harshly, turning warn into 7 minutes
@@ -263,7 +263,7 @@ class Room {
             }
             else {
                 userData.recentMod = true;
-                setTimeout(function() {
+                setTimeout(() => {
                     userData.recentMod = false;
                 }, 45000);
             }

@@ -1,5 +1,4 @@
 'use strict';
-let sys = require("sys");
 let https = require("https");
 let http = require("http");
 let url = require("url");
@@ -14,7 +13,7 @@ exports.parse = {
         if (data.charAt(0) !== "a") return false;
         data = JSON.parse(data.slice(1));
         if (data instanceof Array) {
-            for (var i = 0, len = data.length; i < len; i++) {
+            for (let i = 0, len = data.length; i < len; i++) {
                 this.receive(data[i]);
             }
         }
@@ -26,13 +25,13 @@ exports.parse = {
         if (!entry) return false;
         let roomid = "lobby";
         let initMessage = false;
-        entry.split("\n").forEach(function(e) {
+        entry.split("\n").forEach(e => {
             if (e.charAt(0) === ">") roomid = toId(e, true);
             if (e.includes("|") && ((initMessage && ["users", "title"].includes(e.split("|")[1])) || !initMessage)) {
                 if (e.split("|")[1] === "init") initMessage = true;
                 this.parse(roomid, e);
             }
-        }.bind(this));
+        });
     },
     parse: function(room, entry) {
         if (!room || !entry) return false;
@@ -50,9 +49,9 @@ exports.parse = {
                 log("ok", (toId(parts[2]) !== toId(Monitor.username) ? (toId(parts[2]).slice(0, 5) === "guest" ? "Connected as " : "Logged in as ") : "Renamed to ") + parts[2]);
                 Monitor.username = parts[2];
                 if (toId(parts[2]).slice(0, 5) === "guest" || !this.connectionDetails.firstConnect) break;
-                Object.keys(Db("autojoin").object()).forEach(function(r) {
-                    if (!Rooms.rooms.has(r) ||  r === "lobby") send("|/join " + r);
-                }.bind(this));
+                Object.keys(Db("autojoin").object()).forEach(r => {
+                    if (!Rooms.rooms.has(r) || r === "lobby") send("|/join " + r);
+                });
                 this.connectionDetails.firstConnect = false;
                 break;
             case "nametaken":
@@ -120,14 +119,14 @@ exports.parse = {
         if (toId(nick) === toId(Monitor.username)) return send("|/trn " + nick);
         let id = this.challstr[0];
         let str = this.challstr[1];
-        var requestOptions = {
+        let requestOptions = {
             hostname: this.actionUrl.hostname,
             port: this.actionUrl.port,
             path: this.actionUrl.pathname,
             agent: false
         };
 
-        var data;
+        let data;
         if (!pass) {
             requestOptions.method = 'GET';
             requestOptions.path += '?act=getassertion&userid=' + toId(nick) + '&challengekeyid=' + id + '&challenge=' + str;
@@ -141,13 +140,13 @@ exports.parse = {
             };
         }
 
-        var req = require('http').request(requestOptions, function(res) {
+        let req = http.request(requestOptions, res => {
             res.setEncoding('utf8');
-            var data = '';
-            res.on('data', function(chunk) {
+            data = '';
+            res.on('data', chunk => {
                 data += chunk;
             });
-            res.on('end', function() {
+            res.on('end', () => {
                 if (data === ';') {
                     log("error", 'failed to log in; nick is registered - invalid or no password given');
                 }
@@ -157,17 +156,17 @@ exports.parse = {
 
                 if (data.indexOf('heavy load') !== -1) {
                     log("error", 'the login server is under heavy load; trying again in one minute');
-                    setTimeout(function() {
+                    setTimeout(() => {
                         this.login(nick, pass);
-                    }.bind(this), 60 * 1000);
+                    }, 60 * 1000);
                     return;
                 }
 
                 if (data.substr(0, 16) === '<!DOCTYPE html>') {
                     log("error", 'Connection error 522; trying agian in one minute');
-                    setTimeout(function() {
+                    setTimeout(() => {
                         this.login(nick, pass);
-                    }.bind(this), 60 * 1000);
+                    }, 60 * 1000);
                     return;
                 }
 
@@ -186,10 +185,10 @@ exports.parse = {
                 if (toId(nick) !== nick) {
                     send("|/trn " + nick, nick);
                 }
-            }.bind(this));
-        }.bind(this));
+            });
+        });
 
-        req.on('error', function(err) {
+        req.on('error', err => {
             log("error", 'login error: ' + err.stack);
         });
 

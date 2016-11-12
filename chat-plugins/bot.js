@@ -88,7 +88,7 @@ exports.commands = {
         this.can("say");
         let botAuth = Db("ranks").object();
         let auth = {};
-        for (var u in botAuth) {
+        for (let u in botAuth) {
             if (!auth[botAuth[u]]) auth[botAuth[u]] = [];
             auth[botAuth[u]].push(u);
         }
@@ -98,15 +98,13 @@ exports.commands = {
             "@": "@Moderators",
             "~": "~Adminstrators",
         }
-        let buffer = Object.keys(auth).sort(function(a, b) {
+        let buffer = Object.keys(auth).sort((a, b) => {
             if (Config.ranks[a] > Config.ranks[b]) return -1;
             return 1;
-        }).map(function(r) {
-            return rankNames[r] + " (" + auth[r].length + ")\n" + auth[r].sort().join(", ");
-        }).join("\n\n");
-        Tools.uploadToHastebin(buffer, function(link) {
+        }).map(r => rankNames[r] + " (" + auth[r].length + ")\n" + auth[r].sort().join(", ")).join("\n\n");
+        Tools.uploadToHastebin(buffer, link => {
             this.send("Bot Auth: " + link);
-        }.bind(this))
+        });
     },
     mute: function(target, room, user) {
         if (!target || !this.can("mute")) return false;
