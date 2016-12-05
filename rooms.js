@@ -230,9 +230,10 @@ class Room {
                         if (Object.keys(bannedWords).length) {
                             let tMsg = msg.toLowerCase();
                             let maxPoints = 0;
+                            let wordSearch;
                             for (let tWord in bannedWords) {
                                 try {
-                                    let wordSearch = new RegExp(tWord, 'i');
+                                    wordSearch = new RegExp(tWord, 'i');
                                 }
                                 catch (e) {
                                     continue;
