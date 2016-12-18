@@ -125,7 +125,7 @@ if (!Object.keys(Db("ranks").object()).length) {
         log("monitor", "Promoted " + process.argv.slice(2).join("").yellow + " to BotAdmin.")
     }
     else {
-        console.log("Please include the name of the bot admin. `node main.js [username]`");
+        console.log("Please include the name of the bot admin. `node app.js [username]`");
         process.exit(-1);
     }
 }
