@@ -74,6 +74,7 @@ class CacheDB {
 	        return this;
 	    }
 	    this.dir = dir;
+	    this.temp = dir.replace(/\.json$/i, "_.json");
 	    return this;
 	}
 	
@@ -92,8 +93,18 @@ class CacheDB {
 	
 	write() {
 		if (this.dir && this.changes) {
-		    fs.writeFile(this.dir, JSON.stringify(this.cache), () => {
-				this.changes = false;
+			// write in the temporary directory first
+		    fs.writeFile(this.temp, JSON.stringify(this.cache), err => {
+		    	if (err) {
+		    		return console.log("ERROR WRITING TO FILE: " + err);
+		    	}
+		    	// if success, rename the file.
+		    	fs.rename(this.temp, this.dir, err => {
+		    		if (err) {
+		    			return console.log("ERROR RENAMING FILE: " + err);
+		    		}
+		    		this.changes = false;
+		    	});
 		    });
 		}
 	}
