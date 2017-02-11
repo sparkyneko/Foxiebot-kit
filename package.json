@@ -15,10 +15,10 @@
 	},
 	"engineStrict": true,
 	"scripts": {"start": "node app.js"},
-	"bin": "./main.js",
+	"bin": "./app.js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/sparkychild/FoxieBot.git"
+		"url": "https://github.com/sparkychildcharlie/FoxieBot.git"
 	},
 	"author": {
 		"name": "Charlie Kobayashi",
