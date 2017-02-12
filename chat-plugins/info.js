@@ -50,7 +50,7 @@ exports.commands = {
         this.send(Monitor.username + "'s github repository: https://github.com/sparkychildcharlie/FoxieBot");
     },
     usage: function(target, room, user) {
-        let baseLink = "http://www.smogon.com/stats/2016-01/";
+        let baseLink = "http://www.smogon.com/stats/2017-01/";
         if (!target) return this.send(baseLink);
         
         //get stats
