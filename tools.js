@@ -138,7 +138,7 @@ exports.Tools = {
             path: '/documents'
         };
 
-        let req = require('http').request(reqOpts, res => {
+        let req = require('https').request(reqOpts, res => {
             res.on('data', chunk => {
                 // CloudFlare can go to hell for sending the body in a header request like this
                 let filename;
