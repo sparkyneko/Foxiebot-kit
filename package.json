@@ -2,11 +2,10 @@
 	"name": "Pokemon-Showdown-Bot",
 	"version": "0.0.1",
 	"dependencies": {
-		"sugar": "1.4.1",
-		"websocket": "1.0.8",
-		"colors": "0.6.2",
-		"csv-parse":"0.0.6",
-		"es6-shim": "0.33.6",
+		"sugar": "2.0.4",
+		"websocket": "1.0.24",
+		"colors": "1.1.2",
+		"es6-shim": "0.35.3",
 		"origindb": "^2.4.1",
 		"graceful-fs": "^4.1.3"
 	},
