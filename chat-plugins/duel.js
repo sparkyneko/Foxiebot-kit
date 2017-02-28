@@ -43,6 +43,13 @@ exports.commands = {
         let buf = `#${data.num} - **${data.mon}** [${data.types.join("/")}] [${data.rarity} - ${data.mp}MP]`;
         if (data.ability) buf += " / " + data.ability.replace(/^.+?(?=\s-\s)/, m => `**${m}**`);
         buf += " / **Moves**: " + data.moves.map(m => `\`\`${m.name}\`\` [${(m.power === 0 ? "" : (typeof m.power === "string" ? m.power : m.power + "BP") + " x ")}${m.size}]`).join(", ");
+        
+        // for super long entries
+        if (buf.length > 300) {
+            this.send(buf.slice(0, 295) + "...");
+            this.send("..." + buf.slice(295));
+            return;
+        }
         this.send(buf);
     },
     
