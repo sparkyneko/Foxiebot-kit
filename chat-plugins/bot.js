@@ -1,5 +1,6 @@
 'use strict';
 exports.commands = {
+    js: "eval",
     eval: function(target, room, user) {
         if (!user.isDev() || !target) return false;
         let battle;

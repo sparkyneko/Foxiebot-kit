@@ -29,6 +29,11 @@ class Context {
     }
 
     can(command, details) {
+        if (command === "dev") {
+            if (this.user.isDev()) return true;
+            return false;
+        }
+        
         this.canBroadcast = this.user.can(command, this.room, this.targetUser, details);
         return this.canBroadcast;
     }

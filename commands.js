@@ -1,9 +1,5 @@
 'use strict';
 // use return false to show that the command didnt go through to prevent triggering false monitor moderations
-Tools.Formats = require("./data/pokemon.js").BattleFormatsData;
-Tools.Pokedex = require("./data/pokedex.js").BattlePokedex;
-Tools.helpEntries = require("./help.js").help;
-Tools.Movedex = require("./data/moves.js").BattleMovedex;
 
 exports.commands = {
     say: function(target, room, user) {
