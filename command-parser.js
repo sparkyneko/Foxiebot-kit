@@ -31,7 +31,11 @@ class Context {
 	}
 	
 	splitSend(message) {
-		let chunks = message.match(/(?:[^\s]{300,}?|.{1,294})(?:\s|$)/g).map();
+		let chunks = message.match(/(?:[^\s]{300,}?|.{1,294})(?:\s|$)/g);
+		
+		if (!chunks || !chunks.length) return false;
+		chunks = chunks.map(p => p.trim());
+		
 		for (let i in chunks) {
 			let chunk = chunks[i];
 			if (chunk.length > 300) {
@@ -45,10 +49,15 @@ class Context {
 		}
 	}
 
-	can(command, details) {
-		this.canBroadcast = this.user.can(command, this.room, this.targetUser, details);
-		return this.canBroadcast;
-	}
+    can(command, details) {
+        if (command === "dev") {
+            if (this.user.isDev()) return true;
+            return false;
+        }
+        
+        this.canBroadcast = this.user.can(command, this.room, this.targetUser, details);
+        return this.canBroadcast;
+    }
 
 	run(original) {
 		let success;
