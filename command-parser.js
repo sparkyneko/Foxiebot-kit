@@ -36,11 +36,11 @@ class Context {
 		if (!chunks || !chunks.length) return false;
 		chunks = chunks.map(p => p.trim());
 		
-		for (let i in chunks) {
+		for (let i = 0; i < chunks.length; i++) {
 			let chunk = chunks[i];
 			if (chunk.length > 300) {
 				let chunks2 = chunk.match(/.{1,294}/g);
-				for (let j in chunks2) {
+				for (let j = 0; j < chunks2.length; j++) {
 					this.send((i || j ? "..." : "") + chunks2[j] + (i === chunks.length - 1 && j === chunks2.length - 1 ? "" : "..."));
 				}
 				continue;
