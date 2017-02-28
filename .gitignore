@@ -3,6 +3,7 @@
 npm-debug.log
 config.js
 crashlogs.txt
+/config/*
 
 .hg
 .bzr
