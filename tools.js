@@ -1,5 +1,5 @@
 'use strict';
-exports.Tools = {
+const tools = exports.Tools = {
     getTimeAgo: function(time) {
         time = ~~((Date.now() - time) / 1000);
 
@@ -163,4 +163,22 @@ exports.Tools = {
         req.write(toUpload);
         req.end();
     },
+    Formats: require("./data/pokemon.js").BattleFormatsData,
+    Pokedex: require("./data/pokedex.js").BattlePokedex,
+    helpEntries: require("./help.js").help,
+    Movedex: require("./data/moves.js").BattleMovedex,
 };
+
+try {
+    tools.Figures = require("./pd-tools/figures");
+} catch (e) {
+    const runDownload = require("./pd-tools/data-downloader");
+    log("error", "Unable to load figures. Running download script to pull data.  During this time, data commands may not work.");
+    
+    runDownload(300)
+        .then(count => {
+            tools.Figures = require("./pd-tools/figures");
+            console.log("Data loaded - " + count + " figures.");
+        })
+        .catch(err => console.log("Failed download: " + err));
+}

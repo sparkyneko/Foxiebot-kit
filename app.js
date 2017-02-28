@@ -42,11 +42,6 @@ catch (e) {
     return runNpm("install");
 }
 
-if (!Object.select) {
-    console.log("Node needs to be updated!");
-    return runNpm("update");
-}
-
 global.fs = require("fs");
 global.toId = function(text, id) {
     if (!text || typeof text !== "string") return "";
