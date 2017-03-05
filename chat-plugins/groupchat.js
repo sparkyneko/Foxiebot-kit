@@ -296,4 +296,13 @@ exports.commands = {
 		
 		send("|/makegroupchat " + gc.title);
 	},
+	
+	showimage: function (target, room, user) {
+		if (!groupchatOwner(room, user) || !user.hasBotRank("%")) return false;
+		
+		let [url, height] = target.split(",").map(p => p.trim());
+		height = parseInt(height) || 400;
+		
+		room.send(user.userid, `!htmlbox <div style="background-image: url(${url}); background-size: contain; background-position: center; background-color: black; height: ${height}px; background-repeat: no-repeat"></div>`);
+	},
 };

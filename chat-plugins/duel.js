@@ -1,6 +1,9 @@
 "use strict";
 const getFigureData = require("../pd-tools/data-downloader");
 
+// allow settable permissions
+Config.settableCommands.duel = true;
+
 exports.commands = {
     updateduel: function (target, room, user) {
         if (!this.can("dev")) return false;
@@ -32,9 +35,9 @@ exports.commands = {
     "dd": "dueldata",
     "dt": "dueldata",
     dueldata: function (target, room, user) {
+        if (target.includes(",")) return this.parse("/duelmovedata " + target);
         this.can("duel"); // new permission for dueling commands - broadcast check only
         
-        if (target.includes(",")) return this.parse("/duelmovedata " + target);
         target = toId(target);
         
         if (!Tools.Figures[target]) return this.send("Invalid figure.");
