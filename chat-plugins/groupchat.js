@@ -259,7 +259,7 @@ exports.commands = {
 		let gc = db.get(user.userid, null);
 		let gcSetup = typeof gc === "object";
 		
-		if (gcSetup || target) {
+		if (!gcSetup || target) {
 			if (!gcSetup && !target) return this.send("Please include a name for the groupchat.");
 			if (gcSetup) {
 				let id = myGroupchat() + toId(gc.title);
