@@ -61,7 +61,7 @@ exports.commands = {
         let moves = Tools.Figures[mon].moves;
         
         let targetMove = moves.filter(m => m.id === move);
-        if (!targetMove.length) return this.errorReply("Invalid move.");
+        if (!targetMove.length) return this.send("Invalid move.");
         
         let result = targetMove.map(m => {
             let buf = "**" + m.name + "**";
