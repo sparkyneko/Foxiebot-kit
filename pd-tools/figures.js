@@ -7541,7 +7541,7 @@ module.exports = {
       "id": "flyaway",
       "colour": "Purple",
       "desc": "This Pokémon jumps over the battle opponent and lands on a surrounding point.",
-      "power": "☆☆"
+      "power": "☆☆☆"
     }, {
       "size": "20",
       "name": "Mist Ball",
@@ -7562,7 +7562,7 @@ module.exports = {
       "id": "flyover",
       "colour": "Purple",
       "desc": "This Pokémon jumps over the battle opponent and lands on a surrounding point.",
-      "power": "☆☆"
+      "power": "☆☆☆"
     }, {
       "size": "4",
       "name": "Miss",
