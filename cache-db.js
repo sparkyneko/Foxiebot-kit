@@ -50,6 +50,10 @@
 'use strict';
 
 const fs = require('graceful-fs');
+function isObject(value) {
+	const type = typeof value; 
+	return value != null && type === 'object' && !Array.isArray(value);
+} 
 
 class CacheDB {
 	constructor() {
@@ -170,7 +174,7 @@ class CacheDB {
 				this.changes = true;
 				return this;
 			}
-			if (!Object.isObject(stage[p]) || !stage[p]) stage[p] = {};
+			if (!isObject(stage[p]) || !stage[p]) stage[p] = {};
 			stage = stage[p];
 		}
 		return this;

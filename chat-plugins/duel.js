@@ -1,6 +1,9 @@
 "use strict";
 const getFigureData = require("../pd-tools/data-downloader");
 
+// allow settable permissions
+Config.settableCommands.duel = true;
+
 exports.commands = {
     updateduel: function (target, room, user) {
         if (!this.can("dev")) return false;
@@ -32,9 +35,9 @@ exports.commands = {
     "dd": "dueldata",
     "dt": "dueldata",
     dueldata: function (target, room, user) {
+        if (target.includes(",")) return this.parse("/duelmovedata " + target);
         this.can("duel"); // new permission for dueling commands - broadcast check only
         
-        if (target.includes(",")) return this.parse("/duelmovedata " + target);
         target = toId(target);
         
         if (!Tools.Figures[target]) return this.send("Invalid figure.");
@@ -42,14 +45,7 @@ exports.commands = {
         let data = Tools.Figures[target];
         let buf = `#${data.num} - **${data.mon}** [${data.types.join("/")}] [${data.rarity} - ${data.mp}MP]`;
         if (data.ability) buf += " / " + data.ability.replace(/^.+?(?=\s-\s)/, m => `**${m}**`);
-        buf += " / **Moves**: " + data.moves.map(m => `\`\`${m.name}\`\` [${(m.power === 0 ? "" : (typeof m.power === "string" ? m.power : m.power + "BP") + " x ")}${m.size}]`).join(", ");
-        
-        // for super long entries
-        if (buf.length > 300) {
-            this.send(buf.slice(0, 295) + "...");
-            this.send("..." + buf.slice(295));
-            return;
-        }
+        buf += " / **Moves**: " + data.moves.map(m => `${m.name} [${(m.power === 0 ? "" : (typeof m.power === "string" ? m.power : m.power + "BP") + " x ")}${m.size}]`).join(", ");
         this.send(buf);
     },
     
@@ -65,7 +61,7 @@ exports.commands = {
         let moves = Tools.Figures[mon].moves;
         
         let targetMove = moves.filter(m => m.id === move);
-        if (!targetMove.length) return this.errorReply("Invalid move.");
+        if (!targetMove.length) return this.send("Invalid move.");
         
         let result = targetMove.map(m => {
             let buf = "**" + m.name + "**";

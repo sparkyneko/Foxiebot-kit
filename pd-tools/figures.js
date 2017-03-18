@@ -274,6 +274,44 @@ module.exports = {
       "power": 40
     }]
   },
+  "snubbull": {
+    "mon": "Snubbull",
+    "id": "snubbull",
+    "num": "8",
+    "types": ["Fairy"],
+    "rarity": "C",
+    "mp": "2",
+    "ability": "None",
+    "moves": [{
+      "size": "32",
+      "name": "Bite",
+      "id": "bite",
+      "colour": "White",
+      "desc": "",
+      "power": 50
+    }, {
+      "size": "28",
+      "name": "Roar",
+      "id": "roar",
+      "colour": "Purple",
+      "desc": "The battle opponent is knocked 1 step back (the opponent chooses the point) and gains Wait.",
+      "power": "☆☆"
+    }, {
+      "size": "32",
+      "name": "Paw",
+      "id": "paw",
+      "colour": "White",
+      "desc": "",
+      "power": 10
+    }, {
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }]
+  },
   "plusle": {
     "mon": "Plusle",
     "id": "plusle",
@@ -364,7 +402,7 @@ module.exports = {
       "id": "metalclaw",
       "colour": "White",
       "desc": "",
-      "power": 80
+      "power": 90
     }, {
       "size": "4",
       "name": "Dodge",
@@ -392,7 +430,7 @@ module.exports = {
       "id": "metalclaw",
       "colour": "White",
       "desc": "",
-      "power": 80
+      "power": 90
     }, {
       "size": "4",
       "name": "Dodge",
@@ -1878,7 +1916,7 @@ module.exports = {
     "types": ["Fire", "Flying"],
     "rarity": "EX",
     "mp": "1",
-    "ability": "None",
+    "ability": "Speed Booster - When this Pokémon evolves, it will gain +1 MP",
     "moves": [{
       "size": "8",
       "name": "Miss",
@@ -1902,11 +1940,11 @@ module.exports = {
       "power": 0
     }, {
       "size": "28",
-      "name": "Iron Tail",
-      "id": "irontail",
+      "name": "Dragon Tail",
+      "id": "dragontail",
       "colour": "White",
-      "desc": "",
-      "power": 80
+      "desc": "Benches your battle opponent (except when opponent has fainted). Your battle opponent must then Wait.",
+      "power": 60
     }]
   },
   "wobbuffet": {
@@ -4432,14 +4470,35 @@ module.exports = {
     "types": ["Rock", "Dark"],
     "rarity": "R",
     "mp": "1",
-    "ability": "None",
+    "ability": "Speed Booster - When this Pokémon evolves, it will gain +1 MP",
     "moves": [{
+      "size": "16",
+      "name": "Bite",
+      "id": "bite",
+      "colour": "White",
+      "desc": "",
+      "power": 50
+    }, {
+      "size": "12",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
       "size": "36",
       "name": "Crunch",
       "id": "crunch",
       "colour": "White",
       "desc": "",
       "power": 60
+    }, {
+      "size": "32",
+      "name": "Earthquake",
+      "id": "earthquake",
+      "colour": "White",
+      "desc": "All Pokémon on the field spin, except this one - if they spin a miss, they are knocked out",
+      "power": 110
     }]
   },
   "zygarde": {
@@ -4456,7 +4515,7 @@ module.exports = {
       "id": "landswrath",
       "colour": "White",
       "desc": "All other Pokémon on the field spin - those that spin purple are knocked out",
-      "power": 60
+      "power": 70
     }, {
       "size": "4",
       "name": "Miss",
@@ -4470,7 +4529,7 @@ module.exports = {
       "id": "dragonbreath",
       "colour": "White",
       "desc": "",
-      "power": 80
+      "power": 100
     }, {
       "size": "4",
       "name": "Miss",
@@ -4876,6 +4935,34 @@ module.exports = {
     "mp": "3",
     "ability": "Justified - This Pokémon's damage is increased by the number of opposing Dark-type Pokémon on the field, plus 10 and the number of your own Dark-type Pokémon minus 10",
     "moves": [{
+      "size": "8",
+      "name": "Dodge",
+      "id": "dodge",
+      "colour": "Blue",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "32",
+      "name": "Sacred Sword",
+      "id": "sacredsword",
+      "colour": "White",
+      "desc": "",
+      "power": 51
+    }, {
+      "size": "32",
+      "name": "Hydro Kick",
+      "id": "hydrokick",
+      "colour": "White",
+      "desc": "Benches your battle Pokémon (excent when opponent has Fainted). Your battle opponent must then Wait.",
+      "power": 40
+    }, {
+      "size": "8",
+      "name": "Dodge",
+      "id": "dodge",
+      "colour": "Blue",
+      "desc": "",
+      "power": 0
+    }, {
       "size": "16",
       "name": "Miss",
       "id": "miss",
@@ -5519,7 +5606,7 @@ module.exports = {
     "mp": "1",
     "ability": "None",
     "moves": [{
-      "size": "8",
+      "size": "12",
       "name": "Miss",
       "id": "miss",
       "colour": "Red",
@@ -5544,7 +5631,7 @@ module.exports = {
       "name": "Landslide",
       "id": "landslide",
       "colour": "Purple",
-      "desc": "The battle opponent now has Wait.",
+      "desc": "The battle opponent is knocked 1 step back and gains Wait",
       "power": "☆"
     }]
   },
@@ -6085,6 +6172,58 @@ module.exports = {
       "colour": "White",
       "desc": "If this Pokémon is knocked out when it uses this attack, the battle opponent becomes paralyzed.",
       "power": 60
+    }]
+  },
+  "flygon": {
+    "mon": "Flygon",
+    "id": "flygon",
+    "num": "173",
+    "types": ["Ground", "Dragon"],
+    "rarity": "R",
+    "mp": "2",
+    "ability": "Sand Blizzard - Your opponent's Fly Away effects are nullified. When this Pokémon is on the field and has evolved, the Soar effects of Pokémon on the field are nullified",
+    "moves": [{
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "16",
+      "name": "Dragon Claw",
+      "id": "dragonclaw",
+      "colour": "White",
+      "desc": "",
+      "power": 60
+    }, {
+      "size": "28",
+      "name": "Draco Meteor",
+      "id": "dracometeor",
+      "colour": "Purple",
+      "desc": "One other Pokémon on the field spins - if they spin a miss or a white attack of 70 damage or more, they are knocked out",
+      "power": "☆"
+    }, {
+      "size": "16",
+      "name": "Dragon Claw",
+      "id": "dragonclaw",
+      "colour": "White",
+      "desc": "",
+      "power": 60
+    }, {
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "28",
+      "name": "Fly Away",
+      "id": "flyaway",
+      "colour": "Purple",
+      "desc": "This Pokémon jumps over the battle opponent and lands on a surrounding point",
+      "power": "☆☆☆"
     }]
   },
   "purrloin": {
@@ -8021,6 +8160,58 @@ module.exports = {
       "power": 90
     }]
   },
+  "reshiram": {
+    "mon": "Reshiram",
+    "id": "reshiram",
+    "num": "261",
+    "types": ["Dragon", "Fire"],
+    "rarity": "EX",
+    "mp": "2",
+    "ability": "Light Stone - This Pokémon gains Wait 9 at the start of the duel",
+    "moves": [{
+      "size": "8",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "12",
+      "name": "Fly",
+      "id": "fly",
+      "colour": "Purple",
+      "desc": "This Pokémon jumps over the battle opponent and lands 1-2 steps away.",
+      "power": "☆☆☆"
+    }, {
+      "size": "36",
+      "name": "Blue Flare",
+      "id": "blueflare",
+      "colour": "White",
+      "desc": "The battle opponent becomes burned",
+      "power": 100
+    }, {
+      "size": "12",
+      "name": "Fly",
+      "id": "fly",
+      "colour": "Purple",
+      "desc": "This Pokémon jumps over the battle opponent and lands 1-2 steps away.",
+      "power": "☆☆☆"
+    }, {
+      "size": "4",
+      "name": "Dodge",
+      "id": "dodge",
+      "colour": "Blue",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "24",
+      "name": "Fusion Flare",
+      "id": "fusionflare",
+      "colour": "White",
+      "desc": "If you have Zekrom on the field, and this Pokémon is not affected by a special condition, exclude the Pokémon knocked out by this Attack from the duel.",
+      "power": 70
+    }]
+  },
   "magmortar": {
     "mon": "Magmortar",
     "id": "magmortar",
@@ -8377,6 +8568,158 @@ module.exports = {
       "power": "☆☆"
     }]
   },
+  "dragonair": {
+    "mon": "Dragonair",
+    "id": "dragonair",
+    "num": "280",
+    "types": ["Dragon"],
+    "rarity": "R",
+    "mp": "2",
+    "ability": "Shed Skin - This Pokémon will recover from any status effect at the start of your turn, and the turn will end.",
+    "moves": [{
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "32",
+      "name": "Magnetic Storm",
+      "id": "magneticstorm",
+      "colour": "Purple",
+      "desc": "This Pokémon and all neigbour Pokémon become Paralyzed",
+      "power": "☆☆"
+    }, {
+      "size": "12",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "48",
+      "name": "Dragon Tail",
+      "id": "dragontail",
+      "colour": "White",
+      "desc": "Benches your battle opponent (except when opponent has fainted). Your battle opponent must then Wait.",
+      "power": 60
+    }]
+  },
+  "dragonite": {
+    "mon": "Dragonite",
+    "id": "dragonite",
+    "num": "281",
+    "types": ["Dragon", "Flying"],
+    "rarity": "EX",
+    "mp": "1",
+    "ability": "Speed Booster - When this Pokémon evolves, it will gain +1 MP",
+    "moves": [{
+      "size": "28",
+      "name": "Extreme Speed",
+      "id": "extremespeed",
+      "colour": "Gold",
+      "desc": "",
+      "power": 50
+    }, {
+      "size": "12",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "28",
+      "name": "Sightseeing",
+      "id": "sightseeing",
+      "colour": "Purple",
+      "desc": "This Pokémon jumps over the battle opponent and lands 1-2 steps away, then gains Wait",
+      "power": "☆"
+    }, {
+      "size": "28",
+      "name": "Dragon Tail",
+      "id": "dragontail",
+      "colour": "White",
+      "desc": "Benches your battle opponent (except when opponent has fainted). Your battle opponent must then Wait.",
+      "power": 90
+    }]
+  },
+  "whimsicott": {
+    "mon": "Whimsicott",
+    "id": "whimsicott",
+    "num": "298",
+    "types": ["Grass", "Fairy"],
+    "rarity": "R",
+    "mp": "3",
+    "ability": "Strong Breeze - Before using this Pokémon, you can switch its position with another one of your own Pokémon in an adjacent space.",
+    "moves": [{
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "12",
+      "name": "Dodge",
+      "id": "dodge",
+      "colour": "Blue",
+      "desc": "",
+      "power": 40
+    }, {
+      "size": "36",
+      "name": "Moonblast",
+      "id": "moonblast",
+      "colour": "White",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "12",
+      "name": "Dodge",
+      "id": "dodge",
+      "colour": "Blue",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "32",
+      "name": "Cotton Guard",
+      "id": "cottonguard",
+      "colour": "Purple",
+      "desc": "In this Pokémon's next battle, it cannot be knocked out",
+      "power": "☆"
+    }]
+  },
+  "gothita": {
+    "mon": "Gothita",
+    "id": "gothita",
+    "num": "303",
+    "types": ["Psychic"],
+    "rarity": "UC",
+    "mp": "3",
+    "ability": "Power Spot - If this Pokémon is at an entry point, this Pokémon deals +30 damage",
+    "moves": [{
+      "size": "44",
+      "name": "Pound",
+      "id": "pound",
+      "colour": "White",
+      "desc": "",
+      "power": 30
+    }, {
+      "size": "40",
+      "name": "Psybeam",
+      "id": "psybeam",
+      "colour": "White",
+      "desc": "If this Pokémon is knocked out, the battle opponent becomes confused.",
+      "power": 40
+    }, {
+      "size": "12",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }]
+  },
   "gothorita": {
     "mon": "Gothorita",
     "id": "gothorita",
@@ -8439,6 +8782,30 @@ module.exports = {
       "power": 50
     }, {
       "size": "16",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }]
+  },
+  "solosis": {
+    "mon": "Solosis",
+    "id": "solosis",
+    "num": "306",
+    "types": ["Psychic"],
+    "rarity": "UC",
+    "mp": "3",
+    "ability": "Dual Brains - If your Duosion or Solosis is adjacent, deal x2 damage",
+    "moves": [{
+      "size": "72",
+      "name": "Psychic",
+      "id": "psychic",
+      "colour": "White",
+      "desc": "",
+      "power": 40
+    }, {
+      "size": "24",
       "name": "Miss",
       "id": "miss",
       "colour": "Red",
