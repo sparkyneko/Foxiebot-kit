@@ -2,7 +2,7 @@
 
 const http = require("http");
 
-const versionControl = "<!--3\\.0.3-->"; // version 3.0 for matching moves and the data.
+const versionControl = "<!--3\\.0.4-->";
 
 const toId = function(text, id) {
     if (!text || typeof text !== "string") return "";
