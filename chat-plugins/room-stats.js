@@ -29,6 +29,8 @@ if (!Monitor.statistics) {
             logStat(room.id, userid);
         }
     });
+    
+    require("../skype/index"); // init skype component
 }
 
 let db = Monitor.statistics.database;
@@ -91,8 +93,10 @@ function runTimeZoneSearch (roomid, userid) {
         }
     }
     
-    for (let hour in stats) {
-        stats[hour] = Math.ceil(stats[hour] / days);
+    if (days > 1) {
+        for (let hour in stats) {
+            stats[hour] = Math.ceil(stats[hour] / days);
+        }
     }
     
     return stats;
@@ -170,6 +174,19 @@ exports.commands = {
         this.send("You have disabled aggregate user statistic logging for '" + room.id + "'.");
     },
     
+    requestkey: function (target, room, user) {
+        room = room || (Rooms.rooms.has(toId(target)) ? Rooms.get(target) : null);
+        
+        if (!room) return user.sendTo("Invalid room.");
+        
+        if (!user.hasRank(room, "#"));
+        
+        let key = (Math.floor(Math.random() * 0xFFFFFFFFFFFFF) + 0x1000000000000).toString(16).toUpperCase();
+        db("auth-keys").set([room.id, "key"], key);
+        
+        user.sendTo("Your authentication key pair is: " + key + ".  Use ``+authenticate " + room.id + ", " + key + "`` on skype to complete the pairing sequence.");
+    },
+    
     userstats: function (target, room, user) {
         if (!room) {
             [room, target] = target.split(",").map(p => p.trim());
@@ -185,7 +202,7 @@ exports.commands = {
         runSearch("userstats", room.id, toId(target)).then(data => {
             Graph(data, {
                 maxBars: 40,
-                title: "User statistics for '" + toId(target) + "' in " + room.title,
+                title: "User statistics for '" + toId(target) + "' in " + room.name,
             }).then(graph => {
                 Tools.uploadToHastebin(graph, link => {
                     user.sendTo(link);

@@ -22,7 +22,7 @@ function Graph (data, options) {
         let maxKeyLength = keys.map(k => k.length).sort((a, b) => b - a)[0];
         let repeats = keys.length;
         
-        let multiple = Math.ceil(maxValue / maxBars);
+        let multiple = Math.ceil(maxValue / maxBars) || 1;
         
         let graph = [];
         for (let i = 0; i < repeats; i++) {
