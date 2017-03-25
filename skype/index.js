@@ -12,7 +12,7 @@ log("info", "Initiating skype...");
 global.skyweb = new Skyweb();
 
 function login () {
-    if (!skypeAccount) log("error", "No skype account found - deprecating skype feature.");
+    if (!skypeAccount) return log("error", "No skype account found - deprecating skype feature.");
     skyweb.login(skypeAccount.name, skypeAccount.pass).then(account => {
         log("ok", "Logged in to skype as: " + account._selfInfo.displayname);
     });
