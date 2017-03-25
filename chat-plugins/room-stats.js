@@ -232,7 +232,7 @@ exports.commands = {
         runSearch("timezone", room.id, toId(target)).then(data => {
             Graph(data, {
                 maxBars: 40,
-                title: "Timezone statistics for '" + toId(target) + "' in " + room.title,
+                title: "Timezone statistics for '" + toId(target) + "' in " + room.name,
             }).then(graph => {
                 Tools.uploadToHastebin(graph, link => {
                     user.sendTo(link);
