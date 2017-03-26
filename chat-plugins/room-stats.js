@@ -179,7 +179,7 @@ exports.commands = {
         
         if (!room) return user.sendTo("Invalid room.");
         
-        if (!user.hasRank(room, "#"));
+        if (!user.hasRank(room, "#")) return this.send("Access denied.");
         
         let key = (Math.floor(Math.random() * 0xFFFFFFFFFFFFF) + 0x1000000000000).toString(16).toUpperCase();
         db("auth-keys").set([room.id, "key"], key);
