@@ -118,4 +118,7 @@ module.exports = {
             console.log(err.stack);
         });
     },
+    statshelp: function (target, convo, user) {
+        SkypeBot.send(convo, "Stats guide: http://pastebin.com/iZCBbynu");
+    },
 };
