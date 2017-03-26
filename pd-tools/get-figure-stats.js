@@ -2,7 +2,7 @@
 
 const http = require("http");
 
-const versionControl = "<!--3\\.0.4-->";
+const versionControl = "<!--3\\.0.5-->";
 
 const toId = function(text, id) {
     if (!text || typeof text !== "string") return "";
