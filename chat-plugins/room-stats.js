@@ -277,4 +277,7 @@ exports.commands = {
             console.log(err.stack);
         });
     },
+    statshelp: function (target, room, user) {
+        this.send("Stats guide: http://pastebin.com/iZCBbynu");
+    },
 };
