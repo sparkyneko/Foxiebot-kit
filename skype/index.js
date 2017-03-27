@@ -37,7 +37,7 @@ skyweb.messagesCallback = function (messages) {
 
 const errorListener = (eventName, err) => {
     log("error", err);
-    if (err.includes("Failed to send message")) {
+    if (err.includes("Failed to send message") || err.includes("Failed to poll message")) {
         log("info", "Trying to login to skype again...");
         global.skyweb = new Skyweb();
         login(); // try logging in again.
