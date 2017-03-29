@@ -175,7 +175,8 @@ exports.commands = {
     },
     
     requestkey: function (target, room, user) {
-        room = room || (Rooms.rooms.has(toId(target)) ? Rooms.get(target) : null);
+        let targetRoom = Rooms.rooms.has(toId(target)) ? Rooms.get(target) : null;
+        room = targetRoom || room;
         
         if (!room) return user.sendTo("Invalid room.");
         
