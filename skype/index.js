@@ -10,9 +10,9 @@ global.SkypeBot = require("./bot");
 
 log("info", "Initiating skype...");
 // connect to Skype!
-global.skyweb = new Skyweb();
 
 function initiate () {
+    global.skyweb = new Skyweb();
     if (!skypeAccount) return log("error", "No skype account found - deprecating skype feature.");
     skyweb.login(skypeAccount.name, skypeAccount.pass).then(account => {
         log("ok", "Logged in to skype as: " + account._selfInfo.displayname);
@@ -39,7 +39,6 @@ function initiate () {
         log("error", err);
         if (err.includes("Failed to send message") || err.includes("Failed to poll message")) {
             log("info", "Trying to login to skype again...");
-            global.skyweb = new Skyweb();
             reinitiate(); // try logging in again.
         }
     };
