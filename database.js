@@ -11,8 +11,8 @@ function Database (path, spawnOptions) {
         fs.mkdirSync(path);
     }
     
-    fs.readdir(path, files => {
-        if (!files) return; // nothing intialized!
+    fs.readdir(path, (err, files) => {
+        if (!files || err) return; // nothing intialized!
         files.forEach(f => spawndb(f));
     });
     
