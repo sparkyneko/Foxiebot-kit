@@ -20,6 +20,7 @@ class Context {
 	}
 
 	send(message) {
+		if (!message) return; // huh? there's no message....
 		if (message.length > 300 && !["!", "/"].includes(message.charAt(0))) return this.splitSend(message);
 		
 		if (this.canBroadcast && this.room) {
