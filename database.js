@@ -13,7 +13,7 @@ function Database (path, spawnOptions) {
     
     fs.readdir(path, (err, files) => {
         if (!files || err) return; // nothing intialized!
-        files.forEach(f => spawndb(f));
+        files.forEach(f => spawndb(f.replace(/\_?\.json$/i, "")));
     });
     
     function spawndb(id) {
