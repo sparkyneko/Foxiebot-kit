@@ -45,6 +45,7 @@ module.exports = {
     },
     
     dehtml: function (message) {
+        if (message || typeof message !== "string") return "";
         // fix formatting
         message = message.replace(/(<(?:\/)?[a-z](?:\s.*?)?>)/g, m => {
             let match = toId(m);
@@ -63,7 +64,7 @@ module.exports = {
     },
     
     htmlize: function (string) {
-        if (!string) return ""; // error catch
+        if (!string || typeof string !== "string") return ""; // error catch
         // potential (?:[^a-z0-9]|^)([\*]+)[^\*]+\1(?![a-z0-9]) // regex match for non letter or beginning of string
         string = string.replace(/\&lt\;/g, '<').replace(/\&gt\;/g, '>').replace(/\&quot\;/g, '\"').replace(/\&apos\;/g, '\'').replace(/\&\#x2f\;/g, '\/').replace(/\&amp\;/g, '&') // dehtmlize first
             .replace(/([\*]+)[^\*]+\1/g, m => { // bold
