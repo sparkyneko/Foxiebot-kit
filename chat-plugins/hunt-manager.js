@@ -56,7 +56,7 @@ exports.commands = {
             Db("hunts").get(id, targetHunt);
         }
         
-        user.sendTo(`**By**: ${targetHunt.addedBy}. **Date**: ${getEST(targetHunt.date)}. **Link**: ${targetHunt.link}. **Views** (${targetHunt.views.length}): ${targetHunt.views.join(", ")}. **QCs** (${targetHunt.qc.length}): ${targetHunt.qc.join(", ")}`);
+        user.sendTo(`**By**: ${targetHunt.addedBy}. **Date**: ${getEST(targetHunt.date)}. **Link**: ${targetHunt.link}. **Views** (${targetHunt.views.length}): ${targetHunt.views.join(", ")}. ${targetHunt.qc.length ? `**QCs** (${targetHunt.qc.length}): ${targetHunt.qc.join(", ")}` : ''}`);
     },
     
     qchunt: function (target, room, user) {
