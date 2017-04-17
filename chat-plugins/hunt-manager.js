@@ -62,7 +62,7 @@ exports.commands = {
     qchunt: function (target, room, user) {
         if (!Rooms.rooms.has("scavengers")) return this.send("The bot must be in the scavengers room for this to work.")
         let scav = Rooms.get("scavengers");
-        if (!user.hasRank(scav, "%")) return this.send("You must be in the scavengers room, and have at least + in the scavengers room.");
+        if (!user.hasRank(scav, "%")) return this.send("You must be in the scavengers room, and have at least % in the scavengers room.");
         let id = toId(target, true);
         
         let targetHunt = Db("hunts").get(id, null);
@@ -84,13 +84,39 @@ exports.commands = {
         if (!Rooms.rooms.has("scavengers")) return this.send("The bot must be in the scavengers room for this to work.")
         let scav = Rooms.get("scavengers");
         target = toId(target);
-        if (!user.hasRank(scav, "%") && user.userid !== target) return this.send("The user must be in the scavengers, and have at least + in the scavengers room.");
+        if (!user.hasRank(scav, "%") && user.userid !== target) return this.send("The user must be in the scavengers, and have at least % in the scavengers room.");
         
         let data = Db("hunts").object();
         
-        let targetHunts = Object.keys(data).filter(id => data[id].addedBy === user.userid);
+        let targetHunts = Object.keys(data).filter(id => data[id].addedBy === target);
         
         this.send(`${targetHunts.length} stored hunt${targetHunts.length === 1 ? "" : "s"} by ${target}: ${targetHunts.join(", ")}`);
+    },
+    
+    pendinghunts: function (target, room, user) {
+        if (!Rooms.rooms.has("scavengers")) return this.send("The bot must be in the scavengers room for this to work.")
+        let scav = Rooms.get("scavengers");
+        target = toId(target);
+        if (!user.hasRank(scav, "%") && user.userid !== target) return this.send("The user must be in the scavengers, and have at least % in the scavengers room.");
+        
+        let data = Db("hunts").object();
+        
+        let targetHunts = Object.keys(data).filter(id => data[id].qc.length < 2).map(key => (data[key].qc.includes(user.userid) ? "__" : "**") + key + " [QC " + data[key].qc.length + "/2]" + (data[key].qc.includes(user.userid) ? "__" : "**"));
+        
+        this.send(`**Pending** (${targetHunts.length}): ${targetHunts.join(", ")}`);
+    },
+    
+    readyhunts: function (target, room, user) {
+        if (!Rooms.rooms.has("scavengers")) return this.send("The bot must be in the scavengers room for this to work.")
+        let scav = Rooms.get("scavengers");
+        target = toId(target);
+        if (!user.hasRank(scav, "%") && user.userid !== target) return this.send("The user must be in the scavengers, and have at least % in the scavengers room.");
+        
+        let data = Db("hunts").object();
+        
+        let targetHunts = Object.keys(data).filter(id => data[id].qc.length >= 2);
+        
+        this.send(`**Ready** (${targetHunts.length}): ${targetHunts.join(", ")}`);
     },
     
     scavhelp: function () {
