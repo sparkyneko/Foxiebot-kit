@@ -101,7 +101,7 @@ exports.commands = {
         
         let data = Db("hunts").object();
         
-        let targetHunts = Object.keys(data).filter(id => data[id].qc.length < 2).map(key => (data[key].qc.includes(user.userid) ? "__" : "**") + key + " [QC " + data[key].qc.length + "/2]" + (data[key].qc.includes(user.userid) ? "__" : "**"));
+        let targetHunts = Object.keys(data).filter(id => data[id].qc.length < 2).map(key => (data[key].qc.includes(user.userid) ? "" : (data[key].addedBy === user.userid ? "__" : "**")) + key + " [QC " + data[key].qc.length + "/2]" + (data[key].qc.includes(user.userid) ? "" : (data[key].addedBy === user.userid ? "__" : "**")));
         
         this.send(`**Pending** (${targetHunts.length}): ${targetHunts.join(", ")}`);
     },
