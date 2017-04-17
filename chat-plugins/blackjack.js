@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 const cardTypes = ["D", "C", "H", "S"];
 const symbols = {
@@ -19,15 +19,10 @@ class blackjackGame extends Rooms.botGame {
         this.gameName = "Blackjack";
         this.answerCommand = "special";
         this.dealer = new blackjackGamePlayer({name: "Blackjack Game Dealer", userid: "blackjackgamedealer"});
+        
+        this.playerObject = blackjackGamePlayer;
     }
     
-    onJoin (user) {
-        if(!this.allowJoins || this.state !== "signups") return;
-        if(this.userList.includes(user.userid)) return user.sendTo("You have already joined!");
-        this.users[user.userid] = new blackjackGamePlayer(user);
-        this.userList.push(user.userid);
-        user.sendTo("You have joined the game of " + this.gameName + ".");
-    }
     shuffleDeck () {
         let deck = [];
         values.forEach((v) =>{

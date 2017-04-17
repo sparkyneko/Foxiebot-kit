@@ -10,6 +10,8 @@ class botGame {
         this.allowJoins = false;
         this.state = null;
         this.answerCommand = "standard";
+        
+        this.playerType = null;
     }
     
     onRename (oldId, newName) {
@@ -31,7 +33,7 @@ class botGame {
     onJoin (user) {
         if(!this.allowJoins || this.state !== "signups") return;
         if(this.userList.includes(user.userid)) return user.sendTo("You have already joined!");
-        this.users[user.userid] = new botGamePlayer(user);
+        this.users[user.userid] = this.playerObject ? new this.playerObject(user, this) : new botGamePlayer(user, this);
         this.userList.push(user.userid);
         user.sendTo("You have joined the game of " + this.gameName + ".");
     }
@@ -50,10 +52,12 @@ class botGame {
 }
 
 class botGamePlayer {
-    constructor (user) {
+    constructor (user, game) {
         this.name = user.name;
         this.userid = user.userid;
         this.user = user;
+        
+        this.game = game;
     }
     
     rename (name) {

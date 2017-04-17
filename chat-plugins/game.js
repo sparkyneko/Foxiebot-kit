@@ -52,8 +52,7 @@ exports.commands = {
         if (!room || !this.can("games")) return false;
         if(!target) this.parse("/help signups");
         let games = {
-            "ulc": "unownsletterchain",
-            "unownsletterchain": "unownsletterchain",
+            "ambush": "ambush",
             "bj": "blackjack",
             "blackjack": "blackjack",
             "kunc": "kunc",
