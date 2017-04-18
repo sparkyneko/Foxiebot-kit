@@ -1,5 +1,10 @@
 "use strict";
 
+const LOG_FILE = "config/hunt-logs.txt";
+function logLine (ln) {
+    fs.appendFile(LOG_FILE, "[" + getEST() + "] " + ln + "\n");
+}
+
 exports.commands = {
     addhunt: function (target, room, user) {
         if (!Rooms.rooms.has("scavengers") || !user.hasRank(Rooms.get("scavengers"), "+")) return this.send("The bot must be in the scavengers room for this to work. You must also have at least + in the scavengers room.");
@@ -18,6 +23,7 @@ exports.commands = {
             views: [user.userid],
         });
         
+        logLine(`${user.userid} has added a new hunt. [${link}]`);
         this.send("Added.");
     },
     
@@ -36,6 +42,7 @@ exports.commands = {
         
         Db("hunts").delete(id);
         
+        logLine(`${user.userid} has deleted a hunt. [${id}]`);
         this.send("Deleted.");
     },
     
@@ -56,6 +63,7 @@ exports.commands = {
             Db("hunts").get(id, targetHunt);
         }
         
+        logLine(`${user.userid} has viewed hunt ${id}`);
         user.sendTo(`**By**: ${targetHunt.addedBy}. **Date**: ${getEST(targetHunt.date)}. **Link**: ${targetHunt.link}. **Views** (${targetHunt.views.length}): ${targetHunt.views.join(", ")}. ${targetHunt.qc.length ? `**QCs** (${targetHunt.qc.length}): ${targetHunt.qc.join(", ")}` : ''}`);
     },
     
@@ -77,6 +85,8 @@ exports.commands = {
         
         Db("hunts").set(id, targetHunt);
         
+        logLine(`${user.userid} has QC'd hunt ${id}`);
+
         this.send("QC'd.");
     },
     
@@ -121,5 +131,33 @@ exports.commands = {
     
     scavhelp: function () {
         this.send("Hunt-Manager guide: https://pastebin.com/8CbAPjLd");
+    },
+    
+    huntlogs: function (target, room, user) {
+        if (!this.can("dev")) return false;
+        
+        let [search, lines] = target.split(",").map(p => p.trim());
+        if (!lines) {
+            if (parseInt(search)) {
+                lines = "" + search;
+                search = null;
+            }
+        }
+        lines = parseInt(lines) || 15;
+        
+        // async readfile and search
+        Promise.resolve(
+            fs.readFile(LOG_FILE, (err, data) => {
+                if (err) return this.send("ERROR: " + err);
+            
+                let entries = data.toString().split("\n");
+                if (search) entries = entries.filter(s => s.includes(search));
+                entries = entries.slice(-lines - 1).reverse();
+            
+                Tools.uploadToHastebin(`Last ${entries.length} lines of HuntLogs${search ? ` containing '${search}'`: ""}:\n\n` + entries.join("\n"), link => {
+                    this.send(link);
+                })
+            })
+        );
     },
 };
