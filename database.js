@@ -51,6 +51,11 @@ function Database (path, spawnOptions) {
     db.drop = function (id) {
         if (!this.hasKey(id)) return;
         databases[id].drop();
+        
+        // drop the timer
+        clearInterval(databases[id].writeInterval);
+        databases[id].writeInterval = null;
+        
         delete databases[id]; // do not track anymore
     };
     
