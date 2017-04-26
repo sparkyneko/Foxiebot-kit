@@ -5,7 +5,7 @@ Config.settableCommands.quote = true;
 exports.commands = {
     q: "quote",
     quote: function (target, room, user) {
-        if (!this.can("quotes")) return false;
+        if (!room || !this.can("quotes")) return false;
         let quotes = Object.keys(Db("quotes").get(room.id, {}));
         if (!quotes.length) return false;
         
@@ -17,7 +17,7 @@ exports.commands = {
     },
     
     addquote: function (target, room, user) {
-        if (!this.can("quotes")) return false;
+        if (!room || !this.can("quotes")) return false;
         
         if (Db("quotes").has([room.id, target])) return this.send("The quote already exists.");
         
@@ -27,7 +27,7 @@ exports.commands = {
     
     deletequote: "delquote",
     delquote: function (target, room, user) {
-        if (!this.can("quotes")) return false;
+        if (!room || !this.can("quotes")) return false;
         
         if (parseInt(target)) {
             let id = parseInt(target);
