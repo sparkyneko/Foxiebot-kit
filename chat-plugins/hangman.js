@@ -50,7 +50,11 @@ class HangmanGame extends Rooms.botGame {
         
         this.lastPost = now;
         this.postQueue = false;
-        this.sendRoom(`${this.buildPuzzle()} | ${this.category} | ${this.guesses.filter(g => this.answer.indexOf(g) === -1 || g.length > 1).join(" ")}`);
+        this.sendRoom(`${this.buildPuzzle()} | ${this.category} | ${this.getIncorrectGuesses.join(" ")}`);
+    }
+    
+    getIncorrectGuesses() {
+        return this.guesses.filter(g => this.answer.indexOf(g) === -1 || g.length > 1);
     }
     
     onGuess(user, target) {
@@ -63,6 +67,11 @@ class HangmanGame extends Rooms.botGame {
             if (this.answerId === target) return this.onEnd(user);
         } else {
             if (!this.buildPuzzle().includes("_")) return this.onEnd(user);
+        }
+        if (this.getIncorrectGuesses().length >= this.maxWrongs) {
+            this.sendRoom(`Oh no! The man has been hung.  The correct answer was ${this.answer}.`);
+            this.onEnd();
+            return;
         }
         this.postPuzzle();
     }
