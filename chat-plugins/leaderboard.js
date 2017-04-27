@@ -16,8 +16,12 @@ global.Leaderboard = {
     settings: leaderboard.settings || {},
     data: leaderboard.data || {},
     
+    getGames: function () {
+        return Object.keys(Monitor.games).filter(g => Monitor.games[g] === g);
+    },
+    
     onConfig: function (room, game, points) {
-        if (game === "constructor" || !(game in Monitor.games) || Monitor.games[game] !== game) return "Invalid game. Valid games are - " + Object.keys(Monitor.games).filter(g => Monitor.games[g] === g).join(", ") + ".";
+        if (game === "constructor" || !(game in Monitor.games) || Monitor.games[game] !== game) return "Invalid game. Valid games are - " + this.getGames().join(", ") + ".";
         points = parseInt(points);
         if (!points || points < 1) return "Invalid point amount.";
         
@@ -98,6 +102,12 @@ global.Leaderboard = {
 };
 
 exports.commands = {
+    games: function (target, room, user) {
+        if (!this.can("broadcast")) return false;
+        
+        this.send("List of games: " + Leaderboard.getGames().join(", "));
+    },
+    
     "lb": "leaderboard",
     leaderboard: function (target, room, user) {
         if (!room) return;
