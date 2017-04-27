@@ -1,7 +1,9 @@
 ﻿"use strict";
 
-class kuncGame extends Rooms.botGame {
-    constructor (room, scorecap) {
+exports.game = "kunc";
+
+class KuncGame extends Rooms.botGame {
+    constructor(room, scorecap) {
         super(room);
         
         this.targetPokemon = null;
@@ -14,14 +16,14 @@ class kuncGame extends Rooms.botGame {
         this.init();
     }
     
-    init () {
+    init() {
         this.state = "started";
         if (this.scorecap <= 0) this.scorecap = 5;
         this.sendRoom("Starting a new game of Kunc.  Simply use ``" + this.room.commandCharacter[0] + "g`` to guess the Pokémon that the moveset belongs to. First to " + this.scorecap + " points wins.");
         this.initRound();
     }
     
-    onReceive (user, answer) {
+    onGuess(user, answer) {
         if (!answer || toId(answer) !== toId(this.targetPokemon)) return;
         if (!(user.userid in this.users)) {
             this.users[user.userid] = new Rooms.botGamePlayer(user);
@@ -31,6 +33,7 @@ class kuncGame extends Rooms.botGame {
         this.users[user.userid].points++;
         if (this.users[user.userid].points >= this.scorecap) {
             this.sendRoom(user.name + " has won the game!");
+            Leaderboard.onWin("kunc", this.room, user.userid, this.scorecap).write();
             this.destroy();
             return;
         }
@@ -38,13 +41,13 @@ class kuncGame extends Rooms.botGame {
         this.initRound();
     }
     
-    initRound () {
+    initRound() {
         this.roundNumber++;
         this.determineQuestion();
         this.sendRoom("Round " + this.roundNumber + " | ``" + this.targetMoveset + ".``");
     }
     
-    determineQuestion () {
+    determineQuestion() {
         // determine a pokemon
         let pokemon = null;
         let pokemonId
@@ -116,7 +119,7 @@ class kuncGame extends Rooms.botGame {
         return this.targetMoveset = moveset.randomize().join(", ");
     }
     
-    getScoreBoard () {
+    getScoreBoard() {
         return "Points: " + Object.keys(this.users).sort().map((u) => {
             return this.users[u].name + " (" + this.users[u].points + ")";
         }).join(", ");
@@ -127,32 +130,11 @@ exports.commands = {
     kunc: function (target, room, user) {
         if (!room || !this.can("games")) return false;
         if(room.game) return this.send("There is already a game going on in this room! (" + room.game.gameName + ")");
-        room.game = new kuncGame(room, target);
-    },
-    kuncstart: function (target, room, user) {
-        if (!room || !this.can("games") || !room.game || room.game.gameId !== "kunc") return false;
-        room.game.onStart();
+        room.game = new KuncGame(room, target);
     },
     kuncscore: function (target, room, user) {
         if (!room || !this.can("games") || !room.game || room.game.gameId !== "kunc") return false;
         this.send(room.game.getScoreBoard());
-    },
-    kuncguess: function (target, room, user) {
-        if(!room || !room.game || room.game.gameId !== "kunc" || !target) return false;
-        room.game.onReceive(user, target);
-    },
-    kuncend: function (target, room, user) {
-        if (!room || !this.can("games") || !room.game || room.game.gameId !== "kunc") return false;
-        this.send("The game of kunc was forcibly ended. The correct answer was: " + room.game.targetPokemon);
-        room.game.destroy();
-    },
-    kuncjoin: function (target, room, user) {
-        if (!room || !room.game || room.game.gameId !== "kunc") return false;
-        room.game.onJoin(user);
-    },
-    kuncleave: function (target, room, user) {
-        if (!room || !room.game || room.game.gameId !== "kunc") return false;
-        room.game.onLeave(user);
     },
     kuncskip: function (target, room, user) {
         if (!room || !this.can("games") || !room.game || room.game.gameId !== "kunc") return false;

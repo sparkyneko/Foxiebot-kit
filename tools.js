@@ -1,5 +1,18 @@
 'use strict';
 const tools = exports.Tools = {
+    toTitleCase: function(str) {
+        return str.replace(/\b[a-z]/g, m => m.toUpperCase());
+    },
+    shuffle: function (array) {
+        let i = array.length;
+	    while (i) {
+		    let j = Math.floor(Math.random() * i);
+		    let t = array[--i];
+		    array[i] = array[j];
+		    array[j] = t;
+	    }
+	    return array;
+    },
     getTimeAgo: function(time) {
         time = ~~((Date.now() - time) / 1000);
 
@@ -56,14 +69,24 @@ const tools = exports.Tools = {
         }
         let loaded = [];
         let failed = [];
+        
+        Monitor.games = {};
         fs.readdirSync('./chat-plugins/').forEach(f => {
             try {
                 this.uncacheTree("./chat-plugins/" + f);
-                Object.assign(Commands, require("./chat-plugins/" + f).commands);
+                
+                let plugin = require("./chat-plugins/" + f);
+                if (plugin.commands) Object.assign(Commands, plugin.commands);
+                if (plugin.game) {
+                    Monitor.games[plugin.game] = plugin.game;
+                    if (plugin.aliases) plugin.aliases.forEach(alias => Monitor.games[alias] = plugin.game);
+                }
+                
                 loaded.push(f);
             }
             catch (e) {
-                failed.push(f)
+                failed.push(f);
+                console.log(e.stack);
             }
         });
         if (loaded.length) {

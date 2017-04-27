@@ -1,4 +1,8 @@
 'use strict';
+
+exports.game = "blackjack";
+exports.aliases = ["bj"];
+
 const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 const cardTypes = ["D", "C", "H", "S"];
 const symbols = {
@@ -8,7 +12,7 @@ const symbols = {
     "C": "♣",
 };
 
-class blackjackGame extends Rooms.botGame {
+class BlackjackGame extends Rooms.botGame {
     constructor(room) {
         super(room);
         
@@ -18,9 +22,9 @@ class blackjackGame extends Rooms.botGame {
         this.gameId = "blackjack";
         this.gameName = "Blackjack";
         this.answerCommand = "special";
-        this.dealer = new blackjackGamePlayer({name: "Blackjack Game Dealer", userid: "blackjackgamedealer"});
+        this.dealer = new BlackjackGamePlayer({name: "Blackjack Game Dealer", userid: "blackjackgamedealer"});
         
-        this.playerObject = blackjackGamePlayer;
+        this.playerObject = BlackjackGamePlayer;
     }
     
     shuffleDeck () {
@@ -30,7 +34,7 @@ class blackjackGame extends Rooms.botGame {
                 deck.push({"value": v, "type": t});
             });
         });
-        return this.deck = deck.randomize();
+        return this.deck = Tools.shuffle(deck);
     }
     
     onStart () {
@@ -118,12 +122,14 @@ class blackjackGame extends Rooms.botGame {
             if(this.users[p].userid === "blackjackgamedealer" || this.users[p].total > 21) continue;
             if(this.users[p].total > this.dealer.total || this.dealer.total > 21) {
                 passingPlayers.push(this.users[p].name);
+                Leaderboard.onWin("blackjack", this.room, p);
             }
         }
         if(!passingPlayers.length) {
             this.sendRoom("Sorry, no winners this time!");
         } else {
             this.sendRoom("The winner" + (passingPlayers.length > 1 ? "s are" : " is") + ": " + passingPlayers.join(",") + ".");
+            Leaderboard.write();
         }
         this.destroy();
     }
@@ -147,7 +153,7 @@ class blackjackGame extends Rooms.botGame {
     }
 }
 
-class blackjackGamePlayer extends Rooms.botGamePlayer {
+class BlackjackGamePlayer extends Rooms.botGamePlayer {
     constructor (user, game) {
         super (user);
         
@@ -200,33 +206,12 @@ exports.commands = {
     blackjack: function (target, room, user) {
         if (!room || !this.can("games")) return false;
         if(room.game) return this.send("There is already a game going on in this room! (" + room.game.gameName + ")");
-        room.game = new blackjackGame(room);
+        room.game = new BlackjackGame(room);
         this.send("A new game of Blackjack is starting. ``" + room.commandCharacter[0] + "join`` to join the game.");
-    },
-    blackjackstart: function (target, room, user) {
-        if (!room || !this.can("games") || !room.game || room.game.gameId !== "blackjack") return false;
-        room.game.onStart();
-    },
-    blackjackplayers: function (target, room, user) {
-        if (!room || !this.can("games") || !room.game || room.game.gameId !== "blackjack") return false;
-        this.send(room.game.buildPlayerList());
-    },
-    blackjackend: function (target, room, user) {
-        if (!room || !this.can("games") || !room.game || room.game.gameId !== "blackjack") return false;
-        room.game.destroy();
-        this.send("The game of blackjack was forcibly ended.");
     },
     hit: function (target, room, user) {
         if (!room || !room.game || room.game.gameId !== "blackjack") return false;
         room.game.onHit(user);
-    },
-    blackjackjoin: function (target, room, user) {
-        if (!room || !room.game || room.game.gameId !== "blackjack") return false;
-        room.game.onJoin(user);
-    },
-    blackjackleave: function (target, room, user) {
-        if (!room || !room.game || room.game.gameId !== "blackjack") return false;
-        room.game.onLeave(user);
     },
     stay: function (target, room, user) {
         if (!room || !room.game || room.game.gameId !== "blackjack") return false;

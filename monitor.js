@@ -44,6 +44,7 @@ class ResourceMonitor {
         this.lockdown = false;
         this.alertRooms = {};
         this.settings = DEFAULT_MONITOR;
+        this.games = {};
         this.init();
     }
     init() {

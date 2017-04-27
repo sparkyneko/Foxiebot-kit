@@ -4,24 +4,20 @@
 exports.commands = {
     join: function(target, room, user) {
         if (!room || !room.game) return false;
-        let gameId = room.game.gameId;
-        this.parse("/" + gameId + "join");
+        if (room.game.onJoin) room.game.onJoin(user);
     },
     "guess": "g",
     g: function(target, room, user) {
         if (!room || !room.game || room.game.answerCommand !== "standard") return false;
-        let gameId = room.game.gameId;
-        this.parse("/" + gameId + "guess " + target);
+        if (room.game.onGuess) room.game.onGuess(user, target);
     },
     leave: function(target, room, user) {
         if (!room || !room.game) return false;
-        let gameId = room.game.gameId;
-        this.parse("/" + gameId + "leave");
+        if (room.game.onLeave) room.game.onLeave(user);
     },
     players: function(target, room, user) {
         if (!room || !this.can("games") || !room.game) return false;
-        let gameId = room.game.gameId;
-        this.parse("/" + gameId + "players");
+        if (room.game.postPlayerList) room.game.postPlayerList();
     },
     score: function(target, room, user) {
         if (!room || !this.can("games") || !room.game) return false;
@@ -30,13 +26,14 @@ exports.commands = {
     },
     start: function(target, room, user) {
         if (!room || !this.can("games") || !room.game) return false;
-        let gameId = room.game.gameId;
-        this.parse("/" + gameId + "start");
+        if (room.game.onStart) room.game.onStart();
     },
     end: function(target, room, user) {
         if (!room || !this.can("games") || !room.game) return false;
-        let gameId = room.game.gameId;
-        this.parse("/" + gameId + "end");
+        if (room.game.onEnd) {
+            room.game.onEnd();
+            this.send("The game has been ended.");
+        }
     },
     skip: function(target, room, user) {
         if (!room || !this.can("games") || !room.game) return false;
@@ -51,13 +48,7 @@ exports.commands = {
     signups: function(target, room, user) {
         if (!room || !this.can("games")) return false;
         if(!target) this.parse("/help signups");
-        let games = {
-            "ambush": "ambush",
-            "bj": "blackjack",
-            "blackjack": "blackjack",
-            "kunc": "kunc",
-        };
-        let gameId = games[toId(target)];
+        let gameId = Monitor.games[toId(target)];
         if (!gameId) return this.send("Invalid game.");
         this.parse("/" + gameId);
     },

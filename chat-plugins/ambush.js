@@ -1,5 +1,7 @@
 "use strict";
 
+exports.game = "ambush";
+
 const TURN_DURATION = 1750;
 const VARIABLE_WAIT_DURATION = 3000;
 const MIN_WAIT_DURATION = 2000;
@@ -22,6 +24,7 @@ class AmbushGame extends Rooms.botGame {
     onStart() {
         if (this.userList.length < 2 || this.state !== "signups") return;
         this.state = "started";
+        this.startingPlayers = this.userList.length;
         
         this.prepTurn();
     }
@@ -90,6 +93,7 @@ class AmbushGame extends Rooms.botGame {
         if (win) {
             let winner = this.users[this.userList[0]];
             this.sendRoom(`Congratulations to ${winner.name} for winning the game of ambush!`);
+            Leaderboard.onWin("ambush", this.room, winner.userid, this.startingPlayers).write();
         }
         
         this.destroy();
@@ -120,30 +124,7 @@ exports.commands = {
         room.game = new AmbushGame(room);
         this.send("A new game of Ambush is starting. ``" + room.commandCharacter[0] + "join`` to join the game.");
     },
-    
-    ambushstart: function (target, room, user) {
-        if (!room || !this.can("games") || !room.game || room.game.gameId !== "ambush") return false;
-        room.game.onStart();
-    },
-    ambushplayers: function (target, room, user) {
-        if (!room || !this.can("games") || !room.game || room.game.gameId !== "ambush") return false;
-        room.game.postPlayerList();
-    },
-    ambushend: function (target, room, user) {
-        if (!room || !this.can("games") || !room.game || room.game.gameId !== "ambush") return false;
-        room.game.onEnd();
-        this.send("The game of ambush was forcibly ended.");
-    },
-    
-    ambushjoin: function (target, room, user) {
-        if (!room || !room.game || room.game.gameId !== "ambush") return false;
-        room.game.onJoin(user);
-    },
-    ambushleave: function (target, room, user) {
-        if (!room || !room.game || room.game.gameId !== "ambush") return false;
-        room.game.onLeave(user);
-    },
-    
+
     fire: function (target, room, user) {
         if (!room || !room.game || room.game.gameId !== "ambush") return false;
         room.game.onFire(user, target);

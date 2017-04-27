@@ -20,6 +20,12 @@ exports.defaultCharacter = ["+"];
 // minimum rank for using a command unless specified.
 exports.defaultRank = "@";
 
+// custom default ranks for different command keys
+exports.customRank = {
+    "broadcast": "+",
+    "managegames": "#",
+};
+
 // If this is disabled, monitor will not run.
 exports.monitorDefault = true;
 
@@ -67,7 +73,7 @@ exports.modSettings = {
     "face": true,
     "stretching": true,
     "bannedwords": true,
-}
+};
 
 // commands that do not trigger monitor
 exports.whitelistCommands = {

@@ -142,7 +142,12 @@ function loadChatPlugins() {
     let failed = [];
     fs.readdirSync("./chat-plugins/").forEach(f => {
         try {
-            Object.assign(Commands, require("./chat-plugins/" + f).commands);
+            let plugin = require("./chat-plugins/" + f);
+            if (plugin.commands) Object.assign(Commands, plugin.commands);
+            if (plugin.game) {
+                Monitor.games[plugin.game] = plugin.game;
+                if (plugin.aliases) plugin.aliases.forEach(alias => Monitor.games[alias] = plugin.game);
+            }                
             loaded.push(f);
         }
         catch (e) {
