@@ -10,7 +10,7 @@ let leaderboard = {};
 
 try {
     leaderboard = JSON.parse(fs.readFileSync(FILE_DIRECTORY));
-} catch(e) {}
+} catch(e) { log("error", "MALFORMED JSON in leaderboard") }
 
 global.Leaderboard = {
     settings: leaderboard.settings || {},
@@ -157,7 +157,6 @@ exports.commands = {
             case "ladder":
             case "":
                 this.can("broadcast");
-                console.log("Running lb ladder command");
                 Leaderboard.visualiseLadder(room).then(ladder => {
                     Tools.uploadToHastebin(ladder, link => this.send(`Leaderboard for '${room.name}': ${link}`));
                 });

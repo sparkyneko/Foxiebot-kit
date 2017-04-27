@@ -190,6 +190,7 @@ const tools = exports.Tools = {
     Pokedex: require("./data/pokedex.js").BattlePokedex,
     helpEntries: require("./help.js").help,
     Movedex: require("./data/moves.js").BattleMovedex,
+    Words: require("./data/words.js").words,
 };
 
 try {
