@@ -19,6 +19,7 @@ class AmbushGame extends Rooms.botGame {
         this.state = "signups";
         
         this.playerObject = AmbushGamePlayer;
+        this.sendRoom("A new game of Ambush is starting. ``" + this.room.commandCharacter[0] + "join`` to join the game.");
     }
     
     onStart() {
@@ -120,9 +121,8 @@ class AmbushGamePlayer extends Rooms.botGamePlayer {
 exports.commands = {
     ambush: function (target, room, user) {
         if (!room || !this.can("games")) return false;
-        if(room.game) return this.send("There is already a game going on in this room! (" + room.game.gameName + ")");
+        if (room.game) return this.send("There is already a game going on in this room! (" + room.game.gameName + ")");
         room.game = new AmbushGame(room);
-        this.send("A new game of Ambush is starting. ``" + room.commandCharacter[0] + "join`` to join the game.");
     },
 
     fire: function (target, room, user) {

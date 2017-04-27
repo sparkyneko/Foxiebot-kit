@@ -47,9 +47,14 @@ exports.commands = {
     },
     signups: function(target, room, user) {
         if (!room || !this.can("games")) return false;
-        if(!target) this.parse("/help signups");
+        if (!target) this.parse("/help signups");
+        
+        let arg;
+        [target, arg] = target.split(",").map(p => p.trim());
+        
         let gameId = Monitor.games[toId(target)];
         if (!gameId) return this.send("Invalid game.");
-        this.parse("/" + gameId);
+        
+        this.parse("/" + gameId + (arg ? " " + arg : ""));
     },
 };

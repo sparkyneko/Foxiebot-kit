@@ -23,6 +23,7 @@ class PassthebombGame extends Rooms.botGame {
         
         this.turn = 1;
         this.allowRenames = false;
+        this.sendRoom("A new game of Pass the bomb is starting. ``" + this.room.commandCharacter[0] + "join`` to join the game.");
     }
     
     getRandomPlayer() {
@@ -101,7 +102,6 @@ exports.commands = {
         if (!room || !this.can("games")) return false;
         if (room.game) return this.send("There is already a game going on in this room! (" + room.game.gameName + ")");
         room.game = new PassthebombGame(room);
-        this.send("A new game of Pass the bomb is starting. ``" + room.commandCharacter[0] + "join`` to join the game.");
     },
     
     toss: function (target, room, user) {

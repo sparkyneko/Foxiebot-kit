@@ -139,4 +139,21 @@ exports.commands = {
         Monitor.release(this.targetUser.userid || this.targetUser);
         this.send((this.targetUser.name || this.targetUser) + " was unbanned by " + user.name + ".");
     },
+    
+    updatedata: function(target, room, user) {
+        if (!this.can("dev")) return false;
+        if (Monitor.dataUpdateLock) return this.send("Please wait until a previous data update is complete.");
+        
+        Monitor.dataUpdateLock = true;
+        
+        require("../data-downloader")(true)
+            .then(() => {
+                Monitor.dataUpdateLock = false;
+                this.send("All updated!");
+            })
+            .catch(err => {
+                Monitor.dataUpdateLock = false;
+                this.send("ERROR: " + err);
+            });
+    }
 };

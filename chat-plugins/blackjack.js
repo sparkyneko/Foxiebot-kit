@@ -25,6 +25,7 @@ class BlackjackGame extends Rooms.botGame {
         this.dealer = new BlackjackGamePlayer({name: "Blackjack Game Dealer", userid: "blackjackgamedealer"});
         
         this.playerObject = BlackjackGamePlayer;
+        this.sendRoom("A new game of Blackjack is starting. ``" + this.room.commandCharacter[0] + "join`` to join the game.");
     }
     
     shuffleDeck () {
@@ -207,7 +208,6 @@ exports.commands = {
         if (!room || !this.can("games")) return false;
         if(room.game) return this.send("There is already a game going on in this room! (" + room.game.gameName + ")");
         room.game = new BlackjackGame(room);
-        this.send("A new game of Blackjack is starting. ``" + room.commandCharacter[0] + "join`` to join the game.");
     },
     hit: function (target, room, user) {
         if (!room || !room.game || room.game.gameId !== "blackjack") return false;

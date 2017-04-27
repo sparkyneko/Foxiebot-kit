@@ -13,14 +13,14 @@ class AnagramGame extends Rooms.botGame {
         this.gameId = "anagrams";
         this.gameName = "Anagrams";
         this.roundNumber = 0;
-        this.scorecap = parseInt(scorecap) || 5;
+        this.scorecap = Math.abs(parseInt(scorecap) || 5);
         this.init();
     }
     
     init () {
         this.state = "started";
         if (this.scorecap <= 0) this.scorecap = 5;
-        this.sendRoom("Starting a new game of Anagrams.  Simply use ``" + this.room.commandCharacter[0] + "g`` to guess the Pokémon. First to " + this.scorecap + " points wins.");
+        this.sendRoom("A new game of Anagrams is starting. Use ``" + this.room.commandCharacter[0] + "g`` to guess the Pokémon. First to " + this.scorecap + " points wins.");
         this.initRound();
     }
     

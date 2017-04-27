@@ -12,14 +12,14 @@ class KuncGame extends Rooms.botGame {
         this.gameId = "kunc";
         this.gameName = "Kunc";
         this.roundNumber = 0;
-        this.scorecap = parseInt(scorecap) || 5;
+        this.scorecap = Math.abs(parseInt(scorecap) || 5);
         this.init();
     }
     
     init() {
         this.state = "started";
         if (this.scorecap <= 0) this.scorecap = 5;
-        this.sendRoom("Starting a new game of Kunc.  Simply use ``" + this.room.commandCharacter[0] + "g`` to guess the Pokémon that the moveset belongs to. First to " + this.scorecap + " points wins.");
+        this.sendRoom("A new game of Kunc is starting.  Use ``" + this.room.commandCharacter[0] + "g`` to guess the Pokémon that the moveset belongs to. First to " + this.scorecap + " points wins.");
         this.initRound();
     }
     
@@ -53,11 +53,11 @@ class KuncGame extends Rooms.botGame {
         let pokemonId
         // make sure there is a valid mon.
         while (!pokemon || !pokemon.randomBattleMoves || !pokemon.tier || ["NFE", "LC"].includes(pokemon.tier)) {
-            pokemonId = Object.keys(Tools.Formats).randomize()[0]
+            pokemonId = Tools.shuffle(Object.keys(Tools.Formats))[0]
             pokemon = Tools.Formats[pokemonId];
         }
         this.targetPokemon = Tools.Pokedex[pokemonId].species;
-        let moves = pokemon.randomBattleMoves.randomize();
+        let moves = Tools.shuffle(pokemon.randomBattleMoves);
         let moveset = [];
         let moveTypes = [];
         let rand = Math.random();
@@ -116,7 +116,7 @@ class KuncGame extends Rooms.botGame {
             moveTypes.push(tMove.type);
             attackerType = attackerType || (tMove.category !== "Status" ? tMove.category : null);
         }
-        return this.targetMoveset = moveset.randomize().join(", ");
+        return this.targetMoveset = Tools.shuffle(moveset).join(", ");
     }
     
     getScoreBoard() {

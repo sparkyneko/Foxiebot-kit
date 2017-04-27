@@ -186,12 +186,35 @@ const tools = exports.Tools = {
         req.write(toUpload);
         req.end();
     },
-    Formats: require("./data/pokemon.js").BattleFormatsData,
-    Pokedex: require("./data/pokedex.js").BattlePokedex,
+
     helpEntries: require("./help.js").help,
-    Movedex: require("./data/moves.js").BattleMovedex,
-    Words: require("./data/words.js").words,
 };
+
+function arrayToObject (array, value) {
+    let obj = {};
+    for (let i = 0; i < array.length; i++) {
+        obj[array[i]] = value;
+    }
+    return obj;
+}
+
+// load the data modules
+require("./data-downloader")().then(() => {
+    tools.Formats = require("./data/formats-data.js").BattleFormatsData;
+    tools.Pokedex = require("./data/pokedex.js").BattlePokedex;
+    tools.Movedex = require("./data/moves.js").BattleMovedex;
+    tools.Abilities = require("./data/abilities.js").BattleAbilities;
+    tools.Items = require("./data/items.js").BattleItems;
+    tools.Locations = require("./data/locations.js").locations;
+    
+    tools.Words = Object.assign({}, 
+        tools.Locations, 
+        arrayToObject(Object.keys(tools.Pokedex).map(p => tools.Pokedex[p].species), "Pokémon"),
+        arrayToObject(Object.keys(tools.Movedex).map(p => tools.Movedex[p].name), "Pokémon Move"),
+        arrayToObject(Object.keys(tools.Abilities).map(p => tools.Abilities[p].name), "Pokémon Ability"),
+        arrayToObject(Object.keys(tools.Items).map(p => tools.Items[p].name), "Pokémon Item")
+    );
+}).catch(e => log("error", e));
 
 try {
     tools.Figures = require("./pd-tools/figures");

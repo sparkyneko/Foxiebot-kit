@@ -50,7 +50,7 @@ class HangmanGame extends Rooms.botGame {
         
         this.lastPost = now;
         this.postQueue = false;
-        this.sendRoom(`${this.buildPuzzle()} | ${this.category} | ${this.getIncorrectGuesses.join(" ")}`);
+        this.sendRoom(`${this.buildPuzzle()} | ${this.category} | ${this.getIncorrectGuesses().join(" ")}`);
     }
     
     getIncorrectGuesses() {
