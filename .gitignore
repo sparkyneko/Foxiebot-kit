@@ -10,8 +10,7 @@ crashlogs.txt
 /data/moves.js
 /data/abilities.js
 /data/items.js
-
-
+/data/trivia.json
 
 .hg
 .bzr
