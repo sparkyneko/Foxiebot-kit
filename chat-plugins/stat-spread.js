@@ -30,6 +30,7 @@ class StatspreadGame extends Rooms.botGame {
     
     onInit() {
         this.sendRoom(`A new game of Stat Spread is starting. Use \`\`${this.room.commandCharacter[0]}g [answer]\`\` to submit your answer. First to ${this.scorecap} points wins!`);
+        
         this.onInitRound();
     }
     

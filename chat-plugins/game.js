@@ -21,8 +21,7 @@ exports.commands = {
     },
     score: function(target, room, user) {
         if (!room || !this.can("games") || !room.game) return false;
-        let gameId = room.game.gameId;
-        this.parse("/" + gameId + "score");
+        if (room.game.getScoreBoard) this.send(room.game.getScoreBoard);
     },
     start: function(target, room, user) {
         if (!room || !this.can("games") || !room.game) return false;
