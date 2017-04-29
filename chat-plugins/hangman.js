@@ -54,7 +54,7 @@ class HangmanGame extends Rooms.botGame {
     }
     
     getIncorrectGuesses() {
-        return this.guesses.filter(g => this.answer.indexOf(g) === -1 || g.length > 1);
+        return this.guesses.filter(g => this.answer.toLowercase().indexOf(g) === -1 || g.length > 1);
     }
     
     onGuess(user, target) {
