@@ -29,7 +29,7 @@ class botGame {
     }
     
     sendRoom(message) {
-        this.room.send(null, message);
+        this.room.send(null, `${Users.get(Monitor.username).hasRank(this.room, "%") ? "/wall " : ""}${message}`);
     }
     
     onJoin(user) {

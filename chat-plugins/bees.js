@@ -32,7 +32,7 @@ class BeesGame extends Rooms.botGame {
     onStart() {
         if (this.userList.length < 2 || this.state !== "signups") return false;
         this.state = "started";
-        this.sendRoom(`Use \`\`${this.room.commandCharacter}run\`\` to escape the swarm of bees.  You can choose not to run and there will be a variable chance that the bees do not notice you.`);
+        this.sendRoom(`Use \`\`${this.room.commandCharacter[0]}run\`\` to escape the swarm of bees.  You can choose not to run and there will be a variable chance that the bees do not notice you.`);
         
         this.startCount = this.userList.length;
         
