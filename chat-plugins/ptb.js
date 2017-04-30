@@ -35,9 +35,9 @@ class PassthebombGame extends Rooms.botGame {
     }
     
     onStart() {
-        if (this.userList.length < 2) return false;
+        if (this.userList.length < 2 || this.state !== "signups") return false;
         this.sendRoom(`When you have the bomb, you can use \`\`${this.room.commandCharacter[0]}toss [player]\`\` to pass someone else the bomb.`);
-        
+        this.state = "started";
         this.startingPlayers = this.userList.length;
         
         this.onPrepTurn();
