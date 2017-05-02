@@ -127,7 +127,7 @@ class BeesGame extends Rooms.botGame {
     
     onRun(user) {
         let player = this.users[user.userid];
-        if (!player || !this.beesReleased || "ran" in player) return;
+        if (!player || this.state !== "started" || "ran" in player) return;
         
         player.ran = this.beesReleased ? ++this.ranCount : 0;
     }
