@@ -6,8 +6,9 @@ exports.commands = {
         let targetRoom = room ? room.id : "global";
         let parts = target.split(",");
         if (parts.length < 3 || !toId(parts[0])) return this.parse("/help addcom");
+        parts[1] = parts[1] === " " ? " " : parts[1].trim();
         let commandInformation = {
-            rank: Config.ranks[parts[1].trim()] ? parts[1].trim() : Config.defaultRank,
+            rank: parts[1] in Config.ranks ? parts[1] : Config.defaultRank,
             text: [parts.slice(2).join(",").trim()],
         }
         let existing = Db("customcommands").get([targetRoom, toId(parts[0])], null);
