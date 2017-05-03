@@ -68,6 +68,7 @@ class Context {
 		success = !(success === false);
 		return success;
 	}
+	
 	parse(post) {
 		return commandParser(post.replace(/^\//i, this.room ? this.room.commandCharacter[0] : Config.defaultCharacter[0]), this.user, this.room, true, this.levelsDeep + 1);
 	}
@@ -122,7 +123,8 @@ exports.commandParser = function(message, user, room, bypassMonitor, levelsDeep)
 	}
 	let customCommand = roomCCon || globalCCon;
 	if (customCommand && (!userIsBanned || user.isDev())) {
-		Plugins.runCustomCommand(target, room, user, customCommand, !room, levelsDeep);
+		let context = new Context(target, user, room, null, levelsDeep);
+		Plugins.runCustomCommand.call(context, target, room, user, customCommand, !room, levelsDeep);
 		Monitor.run(user, room, "customcommand", !room);
 		return;
 	}
