@@ -19,12 +19,12 @@ class Context {
 		return targetId;
 	}
 
-	send(message) {
+	send(message, resend) {
 		if (!message) return; // huh? there's no message....
 		if (message.length > 300 && !["!", "/"].includes(message.charAt(0))) return this.splitSend(message);
 		
 		if (this.canBroadcast && this.room) {
-			this.room.send(this.user.userid, message, this.user.isDev());
+			this.room.send(this.user.userid, message, this.user.isDev() && !resend);
 		}
 		else {
 			this.user.sendTo(message);
@@ -32,21 +32,21 @@ class Context {
 	}
 	
 	splitSend(message) {
-		let chunks = message.match(/(?:[^\s]{300,}?|.{1,294})(?:\s|$)/g);
+		let chunks = message.match(/(?:[^\s]{293,}?|.{1,292})(?:\s|$)/g);
 		
 		if (!chunks || !chunks.length) return false;
 		chunks = chunks.map(p => p.trim());
 		
 		for (let i = 0; i < chunks.length; i++) {
 			let chunk = chunks[i];
-			if (chunk.length > 300) {
-				let chunks2 = chunk.match(/.{1,294}/g);
+			if (chunk.length > 292) {
+				let chunks2 = chunk.match(/.{1,292}/g);
 				for (let j = 0; j < chunks2.length; j++) {
-					this.send((i || j ? "..." : "") + chunks2[j] + (i === chunks.length - 1 && j === chunks2.length - 1 ? "" : "..."));
+					this.send((i || j ? "... " : "") + chunks2[j] + (i === chunks.length - 1 && j === chunks2.length - 1 ? "" : " ..."), true);
 				}
 				continue;
 			}
-			this.send((i ? "..." : "") + chunk + (i === chunks.length - 1 ? "" : "..."));
+			this.send((i ? "... " : "") + chunk + (i === chunks.length - 1 ? "" : " ..."), true);
 		}
 	}
 

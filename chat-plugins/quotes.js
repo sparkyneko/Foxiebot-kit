@@ -1,6 +1,6 @@
 "use strict";
 
-Config.settableCommands.quote = true;
+Config.settableCommands.quotes = true;
 
 exports.commands = {
     q: "quote",
@@ -49,7 +49,7 @@ exports.commands = {
             room = Rooms.get(target);
         }
         
-        if (!user.can("quote", room)) return false;
+        if (!user.can("quotes", room)) return false;
         let quotes = Object.keys(Db("quotes").get(room.id, {}))
             .map((q, i) => (i + 1) + ". " + q);
         
