@@ -23,12 +23,16 @@ if (!Monitor.AIsetup) {
 
         let parts = msg.split("|");
         if (msgType === "c:") parts.shift();
+        if (msgType === "pm") parts = parts.slice(2);
 
         let [userid, ...message] = parts;
         let user = Users.get(userid);
         message = message.join("|");
 
-        if (user.useird === toId(Monitor.username) || (!isPM && !user.can("ai", room)) || (!isPM && !message.includes(Monitor.username))) return;
+        let comChar = ["/", "!", ...(isPM ? Config.defaultCharacter :  room.commandCharacter)];
+        
+        if (comChar.includes(message.charAt(0)) && message.indexOf("/me") !== 0) return;
+        if (user.userid === toId(Monitor.username) || (!isPM && !user.can("ai", room)) || (!isPM && !message.includes(Monitor.username))) return;
 
         askQuestion(message.replace(/^[^a-z0-9]/i, ""))
             .then(res => {
