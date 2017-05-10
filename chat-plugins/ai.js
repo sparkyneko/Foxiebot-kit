@@ -23,7 +23,7 @@ if (!Monitor.AIsetup) {
 
         let parts = msg.split("|");
         if (msgType === "c:") parts.shift();
-        if (msgType === "pm") parts = parts.slice(2);
+        if (msgType === "pm") parts.splice(1, 1);
 
         let [userid, ...message] = parts;
         let user = Users.get(userid);

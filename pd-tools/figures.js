@@ -98,7 +98,7 @@ module.exports = {
     "types": ["Rock", "Bug"],
     "rarity": "R",
     "mp": "1",
-    "ability": "Battle Armor - If your battle opponent spins an Attack with 10 or more damage, you can force them to spin again once per turn",
+    "ability": "Swift Swim - If there is an adjacent Water-type Pokémon, this Pokémon gains +1MP",
     "moves": [{
       "size": "24",
       "name": "Miss",
@@ -351,35 +351,7 @@ module.exports = {
     "rarity": "C",
     "mp": "2",
     "ability": "None",
-    "moves": [{
-      "size": "24",
-      "name": "Tackle",
-      "id": "tackle",
-      "colour": "White",
-      "desc": "",
-      "power": 10
-    }, {
-      "size": "28",
-      "name": "Explosion",
-      "id": "explosion",
-      "colour": "Purple",
-      "desc": "This Pokémon and all neighbour Pokémon faint",
-      "power": "☆☆"
-    }, {
-      "size": "40",
-      "name": "Bullet Seed",
-      "id": "bulletseed",
-      "colour": "White",
-      "desc": "Spin again until Bullet Seed does not land - damage is multiplied by the number of Bullet Seed spins",
-      "power": "20x"
-    }, {
-      "size": "4",
-      "name": "Miss",
-      "id": "miss",
-      "colour": "Red",
-      "desc": "",
-      "power": 0
-    }]
+    "moves": []
   },
   "metagross": {
     "mon": "Metagross",
@@ -1552,7 +1524,7 @@ module.exports = {
     "num": "41",
     "types": ["Poison", "Flying"],
     "rarity": "C",
-    "mp": "2",
+    "mp": "3",
     "ability": "None",
     "moves": [{
       "size": "32",
@@ -1764,7 +1736,7 @@ module.exports = {
     "types": ["Water"],
     "rarity": "EX",
     "mp": "1",
-    "ability": "None",
+    "ability": "Primal Rage - If the opponent has Groudon, Kyogre or Rayquaza on the field, this Pokémon gets MP +1 and does +20 damage",
     "moves": [{
       "size": "28",
       "name": "Water Pulse",
@@ -3105,7 +3077,7 @@ module.exports = {
     "types": ["Ground"],
     "rarity": "EX",
     "mp": "1",
-    "ability": "None",
+    "ability": "Primal Rage - If the opponent has Groudon, Kyogre or Rayquaza on the field, this Pokémon gets MP +1 and does +20 damage",
     "moves": [{
       "size": "8",
       "name": "Miss",
@@ -3121,14 +3093,14 @@ module.exports = {
       "desc": "",
       "power": 110
     }, {
-      "size": "16",
+      "size": "20",
       "name": "Slash",
       "id": "slash",
       "colour": "White",
       "desc": "",
       "power": 50
     }, {
-      "size": "8",
+      "size": "4",
       "name": "Miss",
       "id": "miss",
       "colour": "Red",
@@ -3491,11 +3463,11 @@ module.exports = {
     "ability": "Battle Armor - If your battle opponent spins an Attack with 10 or more damage, you can force them top spin again once per turn",
     "moves": [{
       "size": "28",
-      "name": "Bite",
-      "id": "bite",
+      "name": "Cross Poison",
+      "id": "crosspoison",
       "colour": "White",
       "desc": "",
-      "power": 20
+      "power": 60
     }, {
       "size": "12",
       "name": "Miss",
@@ -3517,6 +3489,13 @@ module.exports = {
       "colour": "Red",
       "desc": "",
       "power": 0
+    }, {
+      "size": "28",
+      "name": "Bite",
+      "id": "bite",
+      "colour": "White",
+      "desc": "",
+      "power": 20
     }]
   },
   "pachirisu": {
@@ -3585,7 +3564,7 @@ module.exports = {
     "types": ["Grass", "Poison"],
     "rarity": "EX",
     "mp": "1",
-    "ability": "None",
+    "ability": "Chemical Pollen - When this Pokémon is on the field, all poisoned and noxious Pokémon have MP-1. This effect does not stack",
     "moves": [{
       "size": "24",
       "name": "Vine Whip",
@@ -4304,7 +4283,7 @@ module.exports = {
     "types": ["Dragon", "Flying"],
     "rarity": "EX",
     "mp": "1",
-    "ability": "None",
+    "ability": "Primal Rage - If the opponent has Groudon, Kyogre or Rayquaza on the field, this Pokémon gets MP +1 and does +20 damage",
     "moves": [{
       "size": "4",
       "name": "Miss",
@@ -4635,7 +4614,7 @@ module.exports = {
     "num": "122",
     "types": ["Grass", "Poison"],
     "rarity": "UC",
-    "mp": "1",
+    "mp": "2",
     "ability": "None",
     "moves": [{
       "size": "32",
@@ -4673,7 +4652,7 @@ module.exports = {
     "num": "123",
     "types": ["Electric"],
     "rarity": "UC",
-    "mp": "2",
+    "mp": "3",
     "ability": "None",
     "moves": [{
       "size": "32",
@@ -5376,6 +5355,51 @@ module.exports = {
       "power": 0
     }]
   },
+  "liepard": {
+    "mon": "Liepard",
+    "id": "liepard",
+    "num": "140",
+    "types": ["Dark"],
+    "rarity": "R",
+    "mp": "2",
+    "ability": "None",
+    "moves": [{
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "20",
+      "name": "Feint Attack",
+      "id": "feintattack",
+      "colour": "White",
+      "desc": "",
+      "power": 50
+    }, {
+      "size": "24",
+      "name": "Assist",
+      "id": "assist",
+      "colour": "Purple",
+      "desc": "A random Pokémon on your bench other than Liepard spins. The attack that is spun takes the place of this attack",
+      "power": "☆"
+    }, {
+      "size": "20",
+      "name": "Feint Attack",
+      "id": "feintattack",
+      "colour": "White",
+      "desc": "",
+      "power": 50
+    }, {
+      "size": "28",
+      "name": "Dodge",
+      "id": "dodge",
+      "colour": "Blue",
+      "desc": "",
+      "power": 0
+    }]
+  },
   "chesnaught": {
     "mon": "Chesnaught",
     "id": "chesnaught",
@@ -5458,7 +5482,7 @@ module.exports = {
     "num": "144",
     "types": ["Steel", "Rock"],
     "rarity": "C",
-    "mp": "1",
+    "mp": "2",
     "ability": "None",
     "moves": [{
       "size": "4",
@@ -5496,6 +5520,16 @@ module.exports = {
       "desc": "This Pokémon gains Wait.",
       "power": 0
     }]
+  },
+  "skorupi": {
+    "mon": "Skorupi",
+    "id": "skorupi",
+    "num": "145",
+    "types": ["Poison", "Bug"],
+    "rarity": "UC",
+    "mp": "2",
+    "ability": "Irritating Sting - Any Psychic-type Pokémon that battles this Pokémon will become confused.",
+    "moves": []
   },
   "onix": {
     "mon": "Onix",
@@ -5641,7 +5675,7 @@ module.exports = {
     "num": "152",
     "types": ["Poison"],
     "rarity": "C",
-    "mp": "1",
+    "mp": "2",
     "ability": "None",
     "moves": [{
       "size": "8",
@@ -6091,6 +6125,16 @@ module.exports = {
       "power": 40
     }]
   },
+  "swellow": {
+    "mon": "Swellow",
+    "id": "swellow",
+    "num": "167",
+    "types": ["Normal", "Flying"],
+    "rarity": "UC",
+    "mp": "2",
+    "ability": "Guts - If this Pokémon has a special condition, it deals +50 damage",
+    "moves": []
+  },
   "greninja": {
     "mon": "Greninja",
     "id": "greninja",
@@ -6171,6 +6215,44 @@ module.exports = {
       "id": "thunderpunch",
       "colour": "White",
       "desc": "If this Pokémon is knocked out when it uses this attack, the battle opponent becomes paralyzed.",
+      "power": 60
+    }]
+  },
+  "rhydon": {
+    "mon": "Rhydon",
+    "id": "rhydon",
+    "num": "172",
+    "types": ["Ground", "Rock"],
+    "rarity": "UC",
+    "mp": "1",
+    "ability": "Reckless Charge - This Pokémon can move up to 2 steps in a straight line",
+    "moves": [{
+      "size": "12",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "28",
+      "name": "Horn Drill",
+      "id": "horndrill",
+      "colour": "Purple",
+      "desc": "The battle opponent is Knocked Out",
+      "power": "☆"
+    }, {
+      "size": "8",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "48",
+      "name": "Stomp",
+      "id": "stomp",
+      "colour": "White",
+      "desc": "",
       "power": 60
     }]
   },
@@ -6409,6 +6491,16 @@ module.exports = {
       "power": 60
     }]
   },
+  "bronzor": {
+    "mon": "Bronzor",
+    "id": "bronzor",
+    "num": "183",
+    "types": ["Steel", "Psychic"],
+    "rarity": "UC",
+    "mp": "2",
+    "ability": "Refraction - Friendly Pokémon next to this Pokémon cannot be affected by any new status effects",
+    "moves": []
+  },
   "golbat": {
     "mon": "Golbat",
     "id": "golbat",
@@ -6440,6 +6532,58 @@ module.exports = {
       "power": "☆☆☆"
     }, {
       "size": "20",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }]
+  },
+  "rhyperior": {
+    "mon": "Rhyperior",
+    "id": "rhyperior",
+    "num": "186",
+    "types": ["Ground", "Rock"],
+    "rarity": "EX",
+    "mp": "1",
+    "ability": "None",
+    "moves": [{
+      "size": "28",
+      "name": "Rock Wrecker",
+      "id": "rockwrecker",
+      "colour": "Purple",
+      "desc": "Knock out 1 of your opponent's Flying-type Pokémon within 2 steps. (When using the Long Barrel plate: \"Knock out 1 of your opponent's Fire, Ice, Flying or Bug-type Pokémon that are 2 or 3 steps away.)",
+      "power": "☆☆"
+    }, {
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "28",
+      "name": "Bulldozer",
+      "id": "bulldozer",
+      "colour": "Blue",
+      "desc": "This Pokémon knocks the battle opponent one step back and claims its previous spot",
+      "power": 0
+    }, {
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "28",
+      "name": "Rock Blast",
+      "id": "rockblast",
+      "colour": "White",
+      "desc": "Spin again until Rock Blast does not land - damage is multiplied by the number of Rock Blast spins",
+      "power": "100x"
+    }, {
+      "size": "4",
       "name": "Miss",
       "id": "miss",
       "colour": "Red",
@@ -7078,6 +7222,44 @@ module.exports = {
       "power": 0
     }]
   },
+  "noctowl": {
+    "mon": "Noctowl",
+    "id": "noctowl",
+    "num": "216",
+    "types": ["Normal", "Flying"],
+    "rarity": "UC",
+    "mp": "2",
+    "ability": "Insomnia - This Pokémon cannot be affected by sleep",
+    "moves": [{
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "24",
+      "name": "Mega Hypnosis",
+      "id": "megahypnosis",
+      "colour": "Purple",
+      "desc": "The battle opponent falls Asleep",
+      "power": "☆☆☆"
+    }, {
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "64",
+      "name": "Clutch",
+      "id": "clutch",
+      "colour": "White",
+      "desc": "",
+      "power": 50
+    }]
+  },
   "ralts": {
     "mon": "Ralts",
     "id": "ralts",
@@ -7268,13 +7450,23 @@ module.exports = {
       "power": 0
     }]
   },
+  "chikorita": {
+    "mon": "Chikorita",
+    "id": "chikorita",
+    "num": "222",
+    "types": ["Grass"],
+    "rarity": "UC",
+    "mp": "3",
+    "ability": "Refreshing Aroma - When this Pokémon moves from the bench to the field, remove any special conditions from all of your Pokémon on the field",
+    "moves": []
+  },
   "glaceon": {
     "mon": "Glaceon",
     "id": "glaceon",
     "num": "223",
     "types": ["Ice"],
     "rarity": "R",
-    "mp": "2",
+    "mp": "3",
     "ability": "None",
     "moves": [{
       "size": "20",
@@ -7420,6 +7612,72 @@ module.exports = {
       "power": 20
     }]
   },
+  "heatran": {
+    "mon": "Heatran",
+    "id": "heatran",
+    "num": "227",
+    "types": ["Fire", "Steel"],
+    "rarity": "EX",
+    "mp": "2",
+    "ability": "Surprise Strike - If there is an opponent's Pokémon on your entry point, and this Pokémon is on the bench, at the beginning of your turn, this Pokémon can move next to that Pokémon and battle. After the battle, if this Pokémon is not knocked out, move it to your bench",
+    "moves": [{
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "12",
+      "name": "Crunch",
+      "id": "crunch",
+      "colour": "White",
+      "desc": "",
+      "power": 70
+    }, {
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "24",
+      "name": "Iron Head",
+      "id": "ironhead",
+      "colour": "White",
+      "desc": "",
+      "power": 110
+    }, {
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "12",
+      "name": "Crunch",
+      "id": "crunch",
+      "colour": "White",
+      "desc": "",
+      "power": 70
+    }, {
+      "size": "4",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "32",
+      "name": "Magma Slide",
+      "id": "magmaslide",
+      "colour": "Purple",
+      "desc": "The battle opponent is knocked 2 steps back and becomes burned. The battle opponent now has Wait.",
+      "power": "☆☆"
+    }]
+  },
   "deoxys4": {
     "mon": "Deoxys",
     "id": "deoxys4",
@@ -7486,7 +7744,7 @@ module.exports = {
       "id": "earthquake",
       "colour": "White",
       "desc": "All Pokémon on the field will spin their wheel. If is Misses, the Pokémon is sent to the PC",
-      "power": 9
+      "power": 120
     }, {
       "size": "4",
       "name": "Miss",
@@ -7508,6 +7766,58 @@ module.exports = {
       "colour": "Red",
       "desc": "",
       "power": 0
+    }]
+  },
+  "zekrom": {
+    "mon": "Zekrom",
+    "id": "zekrom",
+    "num": "232",
+    "types": ["Dragon", "Electric"],
+    "rarity": "EX",
+    "mp": "2",
+    "ability": "Dark Stone - This Pokémon gains Wait 9 at the start of the duel",
+    "moves": [{
+      "size": "8",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "12",
+      "name": "Fly",
+      "id": "fly",
+      "colour": "Purple",
+      "desc": "This Pokémon jumps over the battle opponent and lands 1-2 steps away.",
+      "power": "☆☆☆"
+    }, {
+      "size": "36",
+      "name": "Bolt Strike",
+      "id": "boltstrike",
+      "colour": "White",
+      "desc": "The battle opponent becomes paralyzed.",
+      "power": 90
+    }, {
+      "size": "12",
+      "name": "Fly",
+      "id": "fly",
+      "colour": "Purple",
+      "desc": "This Pokémon jumps over the battle opponent and lands 1-2 steps away.",
+      "power": "☆☆☆"
+    }, {
+      "size": "4",
+      "name": "Dodge",
+      "id": "dodge",
+      "colour": "Blue",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "24",
+      "name": "Fusion Bolt",
+      "id": "fusionbolt",
+      "colour": "White",
+      "desc": "If you have Reshiram on the field, and this Pokémon is not affected by a special condition, exclude the Pokémon knocked out by this Attack from the duel.",
+      "power": 70
     }]
   },
   "raikou": {
@@ -7780,6 +8090,16 @@ module.exports = {
       "power": 0
     }]
   },
+  "crobat": {
+    "mon": "Crobat",
+    "id": "crobat",
+    "num": "240",
+    "types": ["Poison", "Flying"],
+    "rarity": "R",
+    "mp": "3",
+    "ability": "Diffuse Poison - When this Pokémon is on the field, all poisoned Pokémon will do a further -20 damage. This effect does not stack.",
+    "moves": []
+  },
   "quilava": {
     "mon": "Quilava",
     "id": "quilava",
@@ -7787,7 +8107,7 @@ module.exports = {
     "types": ["Fire"],
     "rarity": "C",
     "mp": "2",
-    "ability": "Motivational Flame - If you have any Pokémon with Ember in your PC, this Pokémon's attack damage is increased by 20",
+    "ability": "Rally - This Pokémon's Ember is increased by 20 for each Pokémon in your P.C>",
     "moves": [{
       "size": "52",
       "name": "Flamethrower",
@@ -7994,7 +8314,7 @@ module.exports = {
     "types": ["Fire", "Psychic"],
     "rarity": "EX",
     "mp": "2",
-    "ability": "None",
+    "ability": "Magic Trick_Miss - If this Pokémon spins Miss in battle, one of your plates will switch from used to unused.",
     "moves": [{
       "size": "8",
       "name": "Miss",
@@ -8011,8 +8331,8 @@ module.exports = {
       "power": 50
     }, {
       "size": "32",
-      "name": "Hyperspace Hole",
-      "id": "hyperspacehole",
+      "name": "Flame Kinesis",
+      "id": "flamekinesis",
       "colour": "Purple",
       "desc": "The battle opponent is moved 3 steps away from this Pokémon",
       "power": "☆☆"
@@ -8076,7 +8396,7 @@ module.exports = {
     "num": "256",
     "types": ["Dark"],
     "rarity": "R",
-    "mp": "2",
+    "mp": "3",
     "ability": "Synchronize - When this Pokémon becomes poisoned, noxious, paralyzed, burned etc. by an Attack, the Pokémon that caused the condition will also become it.",
     "moves": [{
       "size": "8",
@@ -8644,6 +8964,84 @@ module.exports = {
       "power": 90
     }]
   },
+  "grovyle": {
+    "mon": "Grovyle",
+    "id": "grovyle",
+    "num": "282",
+    "types": ["Grass"],
+    "rarity": "R",
+    "mp": "2",
+    "ability": "Forest Leap - At the start of your turn, instead of an MP move, you can move this Pokémon to a spot next to an adjacent Grass-type Pokémon. If there is a succession of Grass-type Pokémon adjacent to the first, you may instead move this Pokémon to a spot adjacent to any of them.",
+    "moves": []
+  },
+  "sceptile": {
+    "mon": "Sceptile",
+    "id": "sceptile",
+    "num": "283",
+    "types": ["Grass"],
+    "rarity": "EX",
+    "mp": "2",
+    "ability": "None",
+    "moves": []
+  },
+  "nincada": {
+    "mon": "Nincada",
+    "id": "nincada",
+    "num": "289",
+    "types": ["Bug", "Ground"],
+    "rarity": "UC",
+    "mp": "1",
+    "ability": "Trainee - This Pokémon gains Wait 10 at the start of the duel. When this Pokémon faints in battle, you can evolve it without sending it to the P.C.. If you do, move 1 of the Pokémon in your PC to the bench",
+    "moves": []
+  },
+  "ninjask": {
+    "mon": "Ninjask",
+    "id": "ninjask",
+    "num": "290",
+    "types": ["Bug", "Flying"],
+    "rarity": "R",
+    "mp": "3",
+    "ability": "Bullet Speed - This Pokémon can MP move through Pokémon that have Wait. If this Pokémon has evolved, this Pokémon on your bench gains +1MP",
+    "moves": []
+  },
+  "cottonee": {
+    "mon": "Cottonee",
+    "id": "cottonee",
+    "num": "297",
+    "types": ["Grass", "Fairy"],
+    "rarity": "UC",
+    "mp": "2",
+    "ability": "Fairy Powder - Any Dragon-type Pokémon that battles this Pokémon will become paralyzed",
+    "moves": [{
+      "size": "12",
+      "name": "Miss",
+      "id": "miss",
+      "colour": "Red",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "40",
+      "name": "Tackle",
+      "id": "tackle",
+      "colour": "White",
+      "desc": "",
+      "power": 40
+    }, {
+      "size": "8",
+      "name": "Dodge",
+      "id": "dodge",
+      "colour": "Blue",
+      "desc": "",
+      "power": 0
+    }, {
+      "size": "36",
+      "name": "Cotton Guard",
+      "id": "cottonguard",
+      "colour": "Purple",
+      "desc": "In this Pokémon's next battle, it cannot be knocked out",
+      "power": "☆"
+    }]
+  },
   "whimsicott": {
     "mon": "Whimsicott",
     "id": "whimsicott",
@@ -8665,14 +9063,14 @@ module.exports = {
       "id": "dodge",
       "colour": "Blue",
       "desc": "",
-      "power": 40
+      "power": 0
     }, {
       "size": "36",
       "name": "Moonblast",
       "id": "moonblast",
       "colour": "White",
       "desc": "",
-      "power": 0
+      "power": 40
     }, {
       "size": "12",
       "name": "Dodge",
@@ -8688,6 +9086,26 @@ module.exports = {
       "desc": "In this Pokémon's next battle, it cannot be knocked out",
       "power": "☆"
     }]
+  },
+  "petilil": {
+    "mon": "Petilil",
+    "id": "petilil",
+    "num": "299",
+    "types": ["Grass"],
+    "rarity": "UC",
+    "mp": "2",
+    "ability": "Refreshing Aroma - When this Pokémon moves from the bench to the field, remove any special conditions from all of your Pokémon on the field",
+    "moves": []
+  },
+  "lilligant": {
+    "mon": "Lilligant",
+    "id": "lilligant",
+    "num": "300",
+    "types": ["Grass"],
+    "rarity": "R",
+    "mp": "2",
+    "ability": "Own Tempo - This Pokémon cannot be confused.",
+    "moves": []
   },
   "gothita": {
     "mon": "Gothita",
@@ -8795,8 +9213,8 @@ module.exports = {
     "num": "306",
     "types": ["Psychic"],
     "rarity": "UC",
-    "mp": "3",
-    "ability": "Dual Brains - If your Duosion or Solosis is adjacent, deal x2 damage",
+    "mp": "2",
+    "ability": "Dual Brains - If your Reuniclus, Duosion or Solosis is adjacent, deal x2 damage",
     "moves": [{
       "size": "72",
       "name": "Psychic",
@@ -8820,7 +9238,7 @@ module.exports = {
     "types": ["Psychic"],
     "rarity": "UC",
     "mp": "2",
-    "ability": "Dual Brains - If your Duosion or Solosis is adjacent, deal x2 damage",
+    "ability": "Dual Brains - If your Reuniclus, Duosion or Solosis is adjacent, deal x2 damage",
     "moves": [{
       "size": "40",
       "name": "Psychic",
@@ -8851,7 +9269,7 @@ module.exports = {
     "types": ["Psychic"],
     "rarity": "R",
     "mp": "2",
-    "ability": "Psychic Net - You may redo battle spins up to the number of your other Reuniclus on the field and bench.",
+    "ability": "Psychic Net - You may redo battle spins up to the number of your other Reuniclus on the field.",
     "moves": [{
       "size": "12",
       "name": "Miss",
@@ -8888,6 +9306,26 @@ module.exports = {
       "desc": "The battle opponent becomes confused",
       "power": "☆☆☆"
     }]
+  },
+  "joltik": {
+    "mon": "Joltik",
+    "id": "joltik",
+    "num": "309",
+    "types": ["Bug", "Electric"],
+    "rarity": "UC",
+    "mp": "3",
+    "ability": "Power Draw - When this Pokémon is on the field, your other Pokémon deal +1 damage",
+    "moves": []
+  },
+  "galvantula": {
+    "mon": "Galvantula",
+    "id": "galvantula",
+    "num": "310",
+    "types": ["Bug", "Electric"],
+    "rarity": "R",
+    "mp": "2",
+    "ability": "Electric Web - The opponent's Pokémon that have passed over this Pokémon by using Fly Away, Fly or Soar become paralyzed",
+    "moves": []
   },
   "druddigon": {
     "mon": "Druddigon",
@@ -8926,5 +9364,95 @@ module.exports = {
       "desc": "Benches your battle opponent (except when opponent has fainted). Your battle opponent must then Wait.",
       "power": 50
     }]
+  },
+  "heatmor": {
+    "mon": "Heatmor",
+    "id": "heatmor",
+    "num": "314",
+    "types": ["Fire"],
+    "rarity": "R",
+    "mp": "2",
+    "ability": "None",
+    "moves": []
+  },
+  "durant": {
+    "mon": "Durant",
+    "id": "durant",
+    "num": "315",
+    "types": ["Bug", "Steel"],
+    "rarity": "UC",
+    "mp": "2",
+    "ability": "Team Fight - If there is an adjacent Durant, this Pokémon's White Attacks become Gold Attacks. While this Pokémon is on the field, it can move over other Durant. The 3-Pokémon limit does not apply to this Pokémon in your deck",
+    "moves": []
+  },
+  "cobalion": {
+    "mon": "Cobalion",
+    "id": "cobalion",
+    "num": "316",
+    "types": ["Steel", "Fighting"],
+    "rarity": "EX",
+    "mp": "2",
+    "ability": "Iron Heart - This Pokémon and your Pokémon adjacent to this Pokémon are not knocked out by Gold Attacks from their battle opponents",
+    "moves": []
+  },
+  "terrakion": {
+    "mon": "Terrakion",
+    "id": "terrakion",
+    "num": "317",
+    "types": ["Rock", "Fighting"],
+    "rarity": "EX",
+    "mp": "2",
+    "ability": "Beat Down - All the Blue Attacks of the battle opponents of this Pokémon become Misses",
+    "moves": []
+  },
+  "virizion": {
+    "mon": "Virizion",
+    "id": "virizion",
+    "num": "318",
+    "types": ["Grass", "Fighting"],
+    "rarity": "EX",
+    "mp": "2",
+    "ability": "Step Work - This Pokémon can move over non-Flying-type Pokémon on the field using MP moves.",
+    "moves": []
+  },
+  "phantump": {
+    "mon": "Phantump",
+    "id": "phantump",
+    "num": "323",
+    "types": ["Ghost", "Grass"],
+    "rarity": "UC",
+    "mp": "2",
+    "ability": "Forest Mischief - On the field, this Pokémon can pass through other Pokémon. Attach a Forest Mischief marker to any Psychic-type Pokémon that battles this Pokémon. (While that marker is attached, that Pokémon is not subject to Energy effects.)",
+    "moves": []
+  },
+  "trevenant": {
+    "mon": "Trevenant",
+    "id": "trevenant",
+    "num": "324",
+    "types": ["Ghost", "Grass"],
+    "rarity": "EX",
+    "mp": "1",
+    "ability": "Forest Mystery - Pokémon that have battled this Pokémon becomes Grass-type while they are on the field (but they stop being Grass-type if they leave the field). Your Pokémon can move over this Pokémon when using an MP move",
+    "moves": []
+  },
+  "noibat": {
+    "mon": "Noibat",
+    "id": "noibat",
+    "num": "329",
+    "types": ["Flying", "Dragon"],
+    "rarity": "UC",
+    "mp": "3",
+    "ability": "Sonic Blast - When this Pokémon moves from the bench to the field, remove Wait from all your Pokémon on the field.",
+    "moves": []
+  },
+  "noivern": {
+    "mon": "Noivern",
+    "id": "noivern",
+    "num": "330",
+    "types": ["Flying", "Dragon"],
+    "rarity": "EX",
+    "mp": "2",
+    "ability": "Supersonic Speed - If this Pokémon has evolved, all the Gold Attacks of battle opponents of this Pokémon become White Attacks",
+    "moves": []
   }
 };
