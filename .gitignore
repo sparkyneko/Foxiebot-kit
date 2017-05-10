@@ -12,6 +12,8 @@ crashlogs.txt
 /data/items.js
 /data/trivia.json
 
+/pd-tools/figures.js
+
 .hg
 .bzr
 .svn
