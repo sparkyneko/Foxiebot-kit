@@ -55,6 +55,7 @@ function logStat (roomid, userid) {
  */
 const runSearch = Monitor.statistics.runSearch = function (aspect, roomid, detail) {
     return new Promise((resolve, reject) => {
+        if (!db.hasKey(roomid)) return reject("Logging not enabled for room.");
         let result;
         switch(aspect) {
             case "timezone":
@@ -140,7 +141,7 @@ function cleanStatistics () {
             for (let u in data) {
                 let ud = data[u];
                 for (let d in ud) {
-                    if (Date.parse(new Date(d)) < cutoff) db.delete([u, d]);
+                    if (Date.parse(new Date(d)) < cutoff) db(key).delete([u, d]);
                 }
             }
         })
