@@ -34,7 +34,7 @@ if (!Monitor.AIsetup) {
         if (comChar.includes(message.charAt(0)) && message.indexOf("/me") !== 0) return;
         if (user.userid === toId(Monitor.username) || (!isPM && !user.can("ai", room)) || (!isPM && !message.includes(Monitor.username))) return;
 
-        askQuestion(message.replace(/^[^a-z0-9]/i, ""))
+        askQuestion(message.replace(/^[^a-z0-9]+?/i, ""))
             .then(res => {
                 res = res.replace(/\n/g, " ");
                 if (isPM) {
@@ -57,7 +57,7 @@ exports.commands = {
     "8ball": function (target, room, user) {
         this.can("ai");
 
-        askQuestion(target.replace(/^[^a-z0-9]/i, ""))
+        askQuestion(target.replace(/^[^a-z0-9]+?/i, ""))
             .then(res => {
                 res = res.replace(/\n/g, "");
                 this.send(res);
