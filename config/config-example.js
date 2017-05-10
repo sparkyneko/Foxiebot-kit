@@ -91,6 +91,10 @@ exports.lockedCommands = {
     "settings": true,
     "setprivate": true,
 };
+
+// whether or not the bot will answer people.
+exports.AIEnabled = true;
+
 // bot rank permissions
 // these permissions are only for bot ranks
 // defines what moderation each rank is able to do.
