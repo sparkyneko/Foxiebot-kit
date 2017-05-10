@@ -87,7 +87,7 @@ class User {
             if(this.hasRank(targetRoom, targetRoom ? Db("settings").get([targetRoom.id, action], "#") : "#")) return true;
             return false;
         }
-        let commandRank = targetRoom ? Db("settings").get([targetRoom.id, action], Config.defaultRank) : Config.customRank && Config.customRank[action] ? Config.customRank[action] : Config.defaultRank;
+        let commandRank = targetRoom ? Db("settings").get([targetRoom.id, action], (Config.customRank && Config.customRank[action] ? Config.customRank[action] : Config.defaultRank)) : Config.customRank && Config.customRank[action] ? Config.customRank[action] : Config.defaultRank;
         if (!this.hasRank(targetRoom, commandRank)) return false;
         return true;
     }
