@@ -1,5 +1,5 @@
 "use strict";
-const Graph = require("../graph");
+const Graph = require("./graph");
 
 class Leaderboard {
     constructor(file) {
