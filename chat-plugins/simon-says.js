@@ -173,13 +173,6 @@ class SimonsaysGame extends Rooms.botGame {
         }
         return this.answerKey;
     }
-    buildPlayerList () {
-        let self = this;
-        let list = this.userList.map((f) => {
-            return self.users[f].name;
-        }).sort().join(", ");
-        return "Players (" + this.userList.length + "): " + list;
-    }
 }
 
 exports.commands = {
