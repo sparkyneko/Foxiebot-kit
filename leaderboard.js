@@ -1,3 +1,6 @@
+"use strict";
+const Graph = require("../graph");
+
 class Leaderboard {
     constructor(file) {
         this.settings = {};
