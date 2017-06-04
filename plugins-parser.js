@@ -57,7 +57,11 @@ const plugins = exports.Plugins = {
                 // preset randoms
                 .replace(/{pick}/g, m => {
                     return parts[Math.floor(Math.random() * parts.length)];
-                });
+                })
+
+                // users
+                .replace(/{by}/g, user.name)
+                .replace(/{arg\/by}/g, target || user.name);
                 
             if (/^{parse}/i.test(reply)) {
                 let cmd = reply
@@ -65,7 +69,7 @@ const plugins = exports.Plugins = {
                 return this.parse(cmd);
             }
             
-            this.send(reply);
+            this.send(removeCommand(reply));
         });
     },
 };
