@@ -1,6 +1,6 @@
 {
-	"name": "Pokemon-Showdown-Bot",
-	"version": "0.0.1",
+	"name": "Foxie-Bot",
+	"version": 1.0.0,
 	"dependencies": {
 		"sugar": "2.0.4",
 		"websocket": "1.0.24",
@@ -12,10 +12,12 @@
 		"skyweb": "0.3.1"
 	},
 	"engines": {
-		"node": "> 6.0.0"
+		"node": "> 8.0.0"
 	},
 	"engineStrict": true,
-	"scripts": {"start": "node app.js"},
+	"scripts": {
+		"start": "node app.js"
+	},
 	"bin": "./app.js",
 	"repository": {
 		"type": "git",
