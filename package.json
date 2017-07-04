@@ -1,6 +1,6 @@
 {
 	"name": "Foxie-Bot",
-	"version": 1.0.0,
+	"version": "1.0.0",
 	"dependencies": {
 		"sugar": "2.0.4",
 		"websocket": "1.0.24",
