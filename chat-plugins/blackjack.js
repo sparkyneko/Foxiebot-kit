@@ -147,11 +147,6 @@ class BlackjackGame extends Rooms.botGame {
         }
         return true;
     }
-    
-    buildPlayerList () {
-        let list = this.userList.map((f) => this.users[f].name).sort().join(", ");
-        return "Players (" + this.userList.length + "): " + list;
-    }
 }
 
 class BlackjackGamePlayer extends Rooms.botGamePlayer {
