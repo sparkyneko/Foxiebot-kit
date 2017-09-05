@@ -22,7 +22,7 @@ if (!Monitor.statistics) {
         let [user, message] = msg.split("|");
         let userid = toId(user);
 
-        if (!userid) return; // this is a serverside message
+        if (!userid || userid.length > 19) return; // this is a serverside message, or a faulty message
 
         // log non moderation counts.
         if (msg.indexOf("/log") !== 0) {
@@ -272,7 +272,7 @@ exports.commands = {
         runSearch("roomstats", room.id, target || null).then(data => {
             Graph(data, {
                 maxBars: 40,
-                title: "Room statistics for '" + room.id + (target ? "' on " + target : ""),
+                title: "Room statistics for '" + room.id + "'" + (target ? " on " + target : ""),
                 sort: "values",
             }).then(graph => {
                 Tools.uploadToHastebin(graph, link => {
