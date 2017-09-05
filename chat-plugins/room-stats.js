@@ -108,11 +108,21 @@ function runRoomSearch(roomid, date) {
     
     let stats = {};
     for (let userid in data) {
-        if (!data[userid][date]) continue;
+        if (date && !data[userid][date]) continue;
         stats[userid] = 0;
-
-        for (let hour in data[userid][date]) {
-            stats[userid] += data[userid][date][hour];
+        if (!date) {
+            // total search
+            for (let d in data[userid]) {
+                for (let h in data[userid][d]) {
+                    stats[userid] += data[userid][d][h];
+                }
+            }
+            continue;
+        } else {
+            // search for that one day
+            for (let hour in data[userid][date]) {
+                stats[userid] += data[userid][date][hour];
+            }
         }
     }
     
@@ -259,12 +269,10 @@ exports.commands = {
         
         if (!user.hasRank(room, "%")) return this.send("Access denied.");
         
-        if (!target) return this.parse("/help roomstats");
-        
-        runSearch("roomstats", room.id, target).then(data => {
+        runSearch("roomstats", room.id, target || null).then(data => {
             Graph(data, {
                 maxBars: 40,
-                title: "Room statistics for '" + room.id + "' on " + target,
+                title: "Room statistics for '" + room.id + (target ? "' on " + target : ""),
                 sort: "values",
             }).then(graph => {
                 Tools.uploadToHastebin(graph, link => {
