@@ -149,6 +149,7 @@ function cleanStatistics () {
         db.keys().forEach(key => {
             let data = db(key).cache;
             for (let u in data) {
+                if (u.length > 19) db(key).delete(u); // clear mistakes
                 let ud = data[u];
                 for (let d in ud) {
                     if (Date.parse(new Date(d)) < cutoff) db(key).delete([u, d]);
