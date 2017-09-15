@@ -275,6 +275,7 @@ exports.commands = {
                 maxBars: 40,
                 title: "Room statistics for '" + room.id + "'" + (target ? " on " + target : ""),
                 sort: "values",
+                showPlacement: true,
             }).then(graph => {
                 Tools.uploadToHastebin(graph, link => {
                     user.sendTo(link);
