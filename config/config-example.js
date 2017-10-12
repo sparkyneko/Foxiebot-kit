@@ -93,7 +93,7 @@ exports.lockedCommands = {
 };
 
 // whether or not the bot will answer people.
-exports.AIEnabled = true;
+exports.AIEnabled = false;
 
 // bot rank permissions
 // these permissions are only for bot ranks

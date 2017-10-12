@@ -2,6 +2,8 @@
 'use strict';
 
 exports.commands = {
+    'j': 'join',
+    'y': 'join',
     join: function(target, room, user) {
         if (!room || !room.game) return false;
         if (room.game.onJoin) room.game.onJoin(user);
@@ -27,12 +29,14 @@ exports.commands = {
         if (!room || !this.can("games") || !room.game) return false;
         if (room.game.onStart) room.game.onStart();
     },
+    autostart: function (target, room, user) {
+        if (!room || !this.can("games") || !room.game) return false;
+        if (room.game.runAutoStart) room.game.runAutoStart(target);
+    },
     end: function(target, room, user) {
         if (!room || !this.can("games") || !room.game) return false;
-        if (room.game.onEnd) {
-            room.game.onEnd();
-            this.send("The game has been ended.");
-        }
+        room.game.destroy();
+        this.send("The game has been ended.");
     },
     skip: function(target, room, user) {
         if (!room || !this.can("games") || !room.game) return false;

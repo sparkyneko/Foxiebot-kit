@@ -65,7 +65,28 @@ class botGame {
             clearTimeout(this.timer);
             this.timer = null;
         }
+        if (this.autoStartTimer) {
+            clearTimeout(this.autoStartTimer);
+            this.autoStartTimer = null;
+        }
         delete this.room.game;
+    }
+    
+    runAutoStart(seconds) {
+        if (!('onStart' in this) || this.state !== 'signups') return; // the game does not start
+        
+        // validate input
+        const int = parseInt(seconds);
+        if ((!int || int < 0) && seconds !== 'off') return false;
+
+        if (this.autoStartTimer) clearTimeout(this.autoStartTimer);
+        if (seconds === 'off') return this.sendRoom('The autostart timer has been turned off.');
+        
+        this.autoStartTimer = setTimeout(() => {
+            this.onStart(); // we will assume that it will not try to start 2 games at the same time.
+        }, seconds * 1000);
+        
+        this.sendRoom("The game will automatically start in " + seconds + " seconds.")
     }
 }
 
