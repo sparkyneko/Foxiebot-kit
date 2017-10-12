@@ -91,6 +91,10 @@ exports.parse = {
                     send("|/join " + message.slice(8));
                 }
                 commandParser(message, user, null, false);
+                if (!Config.defaultCharacter.includes(message.charAt(0)) && Config.pmMessage && !user.pmMessageSent) {
+                    user.pmMessageSent = true;
+                    user.sendTo(Config.pmMessage);
+                }
                 break;
             case "j":
             case "J":

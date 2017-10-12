@@ -19,7 +19,7 @@ exports.commands = {
         
         if (cmd === 'ignore') {
             Db('ignorewm').set(user.userid, true);
-            this.send('You are now ignoring welcome messages.')
+            this.send('You are now ignoring welcome messages.');
         } else if (cmd === 'unignore') {
             Db('ignorewm').delete(user.userid);
             this.send("You are no longer ignoring welcome messages.");
