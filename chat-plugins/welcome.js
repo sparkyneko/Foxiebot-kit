@@ -17,6 +17,14 @@ exports.commands = {
         if (!this.can('set')) return false;
         const [cmd, ...bits] = target.split(' ');
         
+        if (cmd === 'ignore') {
+            Db('ignorewm').set(user.userid, true);
+            this.send('You are now ignoring welcome messages.')
+        } else if (cmd === 'unignore') {
+            Db('ignorewm').delete(user.userid);
+            this.send("You are no longer ignoring welcome messages.");
+        }
+        
         if (cmd === 'disable' || cmd === 'off') {
             Db('wm').set([room.id, 'disabled'], true);
             this.send('The welcome message has been disabled.');
