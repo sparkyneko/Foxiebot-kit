@@ -62,7 +62,7 @@ class Timer {
 
 exports.commands = {
     timer: function (target, room, user) {
-        if (!this.can('broadcast')) return false;
+        if (!this.can('broadcast') || !room) return false;
         
         if (target === 'end') {
             if (!room.countdown) return this.send('There is no timer running in this room.');
