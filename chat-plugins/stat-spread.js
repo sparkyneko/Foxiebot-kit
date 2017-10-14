@@ -37,6 +37,7 @@ class StatspreadGame extends Rooms.botGame {
     onInitRound() {
         clearTimeout(this.timer);
         this.round++;
+        this.answered = false;
         this.determineSpread();
         this.postSpread();
         this.timer = setTimeout(() => {
