@@ -34,7 +34,7 @@ class SimonsaysGame extends Rooms.botGame {
         if (this.state !== "signups" || this.userList.length < 2) return false;
         this.state = "idling";
         this.sendRoom("Simply " + this.room.commandCharacter[0] + "g [move, move,...] to submit your move. Modifiers: Retrograde - ``back, front`` ==> ``front, back``; Double - ``left, back`` ==> ``left, back, left, back``; Inversion: ``up, left`` ==> ``down, right``");
-        this.sendRoom(this.buildPlayerList());
+        this.postPlayerList();
         let self = this;
         this.timer = setTimeout(() => {
             self.onInitRound();
@@ -109,7 +109,7 @@ class SimonsaysGame extends Rooms.botGame {
             return;
         }
         // start next round
-        this.sendRoom(this.buildPlayerList());
+        this.postPlayerList();
         let self = this;
         this.timer = setTimeout(() => {
             self.onInitRound();
