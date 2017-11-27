@@ -1,9 +1,9 @@
 "use strict";
 
-const http = require("http");
+const http = require("https");
 
 function getUserInfo(userid) {
-    let link = 'http://pokemonshowdown.com/users/' + userid + '.json';
+    let link = 'https://pokemonshowdown.com/users/' + userid + '.json';
     return new Promise((resolve, reject) => {
         http.get(link, res => {
             var data = '';
