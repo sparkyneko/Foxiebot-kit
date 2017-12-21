@@ -7,7 +7,7 @@ const plugins = exports.Plugins = {
         
         let diff = Math.abs(base - start);
         
-        let res = Math.random() * diff + start;
+        let res = Math.random() * diff + (start > base ? base : start);
         return res.toFixed(decimals);
     },
     
