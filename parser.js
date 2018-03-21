@@ -104,6 +104,7 @@ exports.parse = {
             case "l":
                 room.userLeave(parts[2]);
                 break;
+            case "n":
             case "N":
                 room.userRename(toId(parts[3]), parts[2]);
                 break;
