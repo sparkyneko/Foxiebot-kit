@@ -12,7 +12,7 @@ exports.commands = {
             text: [parts.slice(2).join(",").trim()],
         }
         let existing = Db("customcommands").get([targetRoom, toId(parts[0])], null);
-        if (Commands[toId(parts[0])]) return this.send("You cannot set a custom command with with the same name as a bot command.")
+        if (Commands[toId(parts[0])]) return this.send("You cannot set a custom command with the same name as a bot command.")
         if (existing) return this.send("This command already exists as a custom command in this room!");
         Db("customcommands").set([targetRoom, toId(parts[0])], commandInformation);
         this.send("**" + toId(parts[0]) + "** has been added as a custom command to this room.");
