@@ -280,7 +280,6 @@ let addRoom = Rooms.add = function(room) {
     let roomid = toId(room, true);
     if (rooms.has(roomid)) return getRoom(room);
     rooms.set(roomid, new Room(room));
-    if (roomid !== "global") Db("autojoin").set(roomid, 1);
 };
 
 let getRoom = Rooms.get = function(room) {
@@ -288,6 +287,11 @@ let getRoom = Rooms.get = function(room) {
     if (!rooms.has(roomid)) addRoom(room);
     return rooms.get(roomid);
 };
+
+let autojoinRoom = Rooms.autojoin = function(room) {
+    let roomid = toId(room, true);
+    if (roomid !== "global") Db("autojoin").set(roomid, 1);
+}
 
 let deleteRoom = Rooms.delete = function(room, keepAutojoin) {
     let roomid = toId(room, true);

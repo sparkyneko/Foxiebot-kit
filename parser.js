@@ -118,6 +118,9 @@ exports.parse = {
                 log("left", room.name);
                 Rooms.delete(room.id);
                 break;
+            case "init":
+                Rooms.autojoin(room.id);
+                break;
         }
     },
     login: function(nick, pass) {
