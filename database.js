@@ -35,7 +35,8 @@ function Database (path, spawnOptions) {
             databases[i].write();
         }
     };
-    
+    db.save = db.write;
+
     db.keys = function() {
         return Object.keys(databases);
     }
