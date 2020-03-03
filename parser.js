@@ -49,7 +49,7 @@ exports.parse = {
                 log("ok", (toId(parts[2]) !== toId(Monitor.username) ? (toId(parts[2]).slice(0, 5) === "guest" ? "Connected as " : "Logged in as ") : "Renamed to ") + parts[2]);
                 Monitor.username = parts[2];
                 if (toId(parts[2]).slice(0, 5) === "guest" || !this.connectionDetails.firstConnect) break;
-                Object.keys(Db("autojoin").object()).forEach(r => {
+                Object.keys(Db("autojoin").cache).forEach(r => {
                     if (!Rooms.rooms.has(r) || r === "lobby") send("|/join " + r);
                 });
                 this.connectionDetails.firstConnect = false;

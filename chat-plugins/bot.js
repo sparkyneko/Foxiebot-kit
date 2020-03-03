@@ -76,7 +76,7 @@ exports.commands = {
             "~": "Administrator",
         }
         if (target.split(",")[1].trim().replace("deauth", " ") === " ") {
-            delete Db("ranks").object()[this.targetUser.userid || this.targetUser];
+            Db("ranks").delete(this.targetUser.userid || this.targetUser);
             if(this.targetUser.userid) this.targetUser.botRank = " ";
             Db.save();
         }
@@ -87,7 +87,7 @@ exports.commands = {
     },
     botauth: function(target, room, user) {
         this.can("say");
-        let botAuth = Db("ranks").object();
+        let botAuth = Db("ranks").cache;
         let auth = {};
         for (let u in botAuth) {
             if (!auth[botAuth[u]]) auth[botAuth[u]] = [];

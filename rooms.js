@@ -299,7 +299,7 @@ let deleteRoom = Rooms.delete = function(room, keepAutojoin) {
     rooms.delete(roomid);
     //console.log(roomid + ": " + rooms.has(roomid))
     if (!keepAutojoin) {
-        delete Db("autojoin").object()[roomid];
+        Db("autojoin").delete(roomid)
         Db.save();
     }
 };
