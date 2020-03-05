@@ -103,6 +103,9 @@ class Room {
         let userRank = user.getRank(this.id);
         if (user.userid === toId(Monitor.username) || Config.ranks[botsRank] < 2 || Config.ranks[botsRank] <= Config.ranks[userRank]) return false;
         msg = msg.trim().replace(/[ \u0000\u200B-\u200F]+/g, ' '); // removes extra spaces and null characters so messages that should trigger stretching do so
+        if (msg.startsWith('/raw') || msg.startsWith('/html')) {
+            return; // dont moderate lines with emotes for now.
+        }
 
         if (!this.userData[user.userid]) {
             this.userData[user.userid] = {
