@@ -146,7 +146,7 @@ class CacheDB {
 	}
 
 	get(path, defaultValue) {
-		if (!path) return null;
+		if (!path) return defaultValue;
 		if (typeof path === "string") path = [path]; // stick it into an array
 		let cache = this.getCache(path);
 		return cache || defaultValue;
