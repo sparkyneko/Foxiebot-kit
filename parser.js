@@ -133,6 +133,7 @@ exports.parse = {
             path: this.actionUrl.pathname,
             agent: false
         };
+        log('info', JSON.stringify(requestOptions));
 
         let data;
         if (!pass) {
@@ -185,7 +186,6 @@ exports.parse = {
                     }
                     else {
                         log("error", 'could not log in; action was not successful: ' + JSON.stringify(data));
-                        process.exit(-1);
                     }
                 }
                 catch (e) {}
