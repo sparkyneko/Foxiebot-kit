@@ -87,12 +87,6 @@ if (!fs.existsSync("./config/config.js")) {
 }
 
 global.Config = require("./config/config.js");
-if (!Config.info.server || !Config.info.serverid || !Config.info.port) {
-    log("error", "You need to fill out the config file!");
-}
-if (Config.defaultCharacter.length === 0) {
-    Config.defaultCharacter.push("+");
-}
 
 global.log = function(item, text) {
     if (!Config.logging || (Config.logging !== true && (typeof Config.logging && !Config.logging.includes(item)))) return false;
@@ -107,6 +101,13 @@ global.log = function(item, text) {
         "left": "magenta",
     };
     console.log("[" + d + "] " + item.toUpperCase()[fontColours[item] || "blue"] + "        ".slice(item.length) + text);
+}
+
+if (!Config.info.server || !Config.info.serverid || !Config.info.port) {
+    log("error", "You need to fill out the config file!");
+}
+if (Config.defaultCharacter.length === 0) {
+    Config.defaultCharacter.push("+");
 }
 
 //get the database
