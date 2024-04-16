@@ -133,7 +133,6 @@ exports.parse = {
             path: this.actionUrl.pathname,
             agent: false
         };
-        log('info', JSON.stringify(requestOptions));
 
         let data;
         if (!pass) {
